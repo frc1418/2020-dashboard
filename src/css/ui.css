@@ -1,0 +1,292 @@
+/* Global things */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+::-webkit-scrollbar { display: none; }
+body {
+    font: 16px sans-serif;
+    user-select: none;
+    color: white;
+    overflow: hidden;
+    background: #222;
+}
+/* Top-level interface panels */
+body > * {
+    padding: 10px;
+    position: fixed;
+    overflow: scroll;
+}
+/* Basic interactive components */
+button, input[type="text"], input[type="number"], .select-container, select {
+    color: white;
+    background: #444;
+    border: none;
+    font-size: 14px;
+    padding: 6px 8px;
+    cursor: pointer;
+    outline: 0;
+}
+.select-container {
+    padding: 0;
+    display: inline-block;
+}
+select {
+    border: none;
+    background: none;
+    color: white;
+    height: 30px;
+}
+option {
+    color: #333;
+}
+input[type="text"], input[type="number"] {
+    cursor: text;
+}
+input[type="checkbox"] {
+    filter: saturate(0);
+}
+/* Specific buttons and inputs */
+#refresh {
+    height: 29px;
+    top: 1vh;
+    margin-top: 1vh;
+    width: 2.5vw;
+}
+
+/* Timer */
+@font-face {
+    font-family: 'DS-Digital';
+    src: local('DS-Digital'), url('../../digital.ttf') format('truetype');
+    unicode-range: U+0030—003A;
+}
+#timer {
+    font-family: 'DS-Digital', monospace;
+    display: block;
+    font-size: 20vh;
+    line-height: .8;
+}
+
+/* Connected/Disconnected readout superimposed over dashboard */
+#robot-state {
+    height: 100vh;
+    width: 100vw;
+    pointer-events: none;
+    font-size: 150px;
+    padding-top: 150px;
+    text-align: center;
+    z-index: 3;
+    background: #333;
+    color: #222;
+}
+#robot-state:empty {
+    display: none;
+}
+
+/* Colors for timer in different stages of expiry */
+.high { color: #42C752; }
+.med  { color: #FFEB3B; }
+.low  { color: #D32F2F; }
+
+/* Cameras */
+.camera {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 50vw;
+    height: 37.5vw;
+    background-size: contain;
+    overflow: hidden;
+    background-color: #333;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+#camera1 {
+    right: 50vw;
+}
+#camera2 {
+    right: 0;
+}
+.camera > .stream {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.camera img {
+    display: block;
+    height: 100%;
+    margin: 0px auto;
+}
+.camera img.icon {
+    height: 100px;
+    width: 100px;
+    /* 50px is half the height of the spinner */
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
+}
+.crosshair {
+    display: none;
+    position: absolute;
+    z-index: 5;
+    /* 20px is half the height of the SVG */
+    top: calc(50% - 20px);
+    left: calc(50% - 20px);
+}
+.crosshair * {
+    stroke: red;
+    fill: none;
+    stroke-width: 3px;
+}
+
+/* Tuning */
+#tuning {
+    background: inherit;
+    width: 50vw;
+    height: 100vh;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+}
+#tuning div {
+    margin: 20px 0;
+}
+#tuning p {
+    margin-bottom: 10px;
+}
+
+/* Auto */
+#auto-warning {
+    display: none;
+    color: red;
+}
+#auto {
+    width: 50vw;
+    height: 100vh;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    background: inherit;
+}
+#field, #field svg {
+    width: calc(54 * 8px);
+    height: calc(27 * 8px);
+}
+#field svg {
+    margin-bottom: calc(-27 * 8px);
+}
+#field svg rect {
+    color: red;
+}
+#auto-modes {
+    width: 300px;
+    height: 300px;
+}
+#auto-modes svg {
+    position: relative;
+    bottom: 20px;
+    right: 100px;
+}
+#auto-options {
+    position: relative;
+    left: 50px;
+}
+#field-position input, #auto-modes select, #auto-modes input {
+    margin: 5px;
+    margin-top: 10px;
+}
+#fetch, #ball {
+    position: relative;
+    display: block;
+}
+#replay-auto {
+    position: relative;
+    margin-top: 5px;
+    display: none;
+}
+#replay-auto label {
+    margin-right: 5px;
+}
+
+/* Panel with timer, buttons, and certain small components */
+article {
+    top: 0;
+    left: 0;
+    height: 100vh;
+}
+
+/* General SVG styling */
+svg * {
+    stroke: white;
+    fill: #333;
+    stroke-width: 2;
+    transform-origin: center;
+}
+text {
+    letter-spacing: 2px;
+    stroke: none;
+    fill: white;
+}
+#eye * {
+    z-index: 100;
+    display: inline-block;
+    margin-top: 20px;
+}
+#eye.on * {
+    stroke: green;
+}
+#eye.off * {
+    stroke: grey;
+}
+/* Gyro */
+#gyro {
+    top: 0;
+    right: 0;
+}
+#gyro-arm {
+    transform-origin: bottom;
+}
+#gyro-number {
+    font-size: 25px;
+    text-anchor: middle;
+}
+
+/* Robot diagram */
+#robot-diagram {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+#robot-tower {
+    transition: 0.2s;
+}
+#robot-manipulator {
+}
+#hatch-manipulation-diagram {
+    top: 0;
+    left: 0;
+    z-index: 200;
+}
+.ball {
+    fill: #FF8300;
+}
+#team-number {
+    font-size: 28px;
+    letter-spacing: -1px;
+}
+
+/* Hide everything but cameras when enabled */
+body.enabled article,
+body.enabled > svg {
+    visibility: hidden;
+}
+
+.hidden {
+    display: none;
+}
