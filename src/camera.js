@@ -18,7 +18,7 @@ class Camera {
         this.container = parent.querySelector('.stream');
         this.crosshair = parent.querySelector('.crosshair');
         this.stream = cameraLink + '/?action=stream';
-        this.testPage = cameraLink = '/program.json';
+        this.testPage = cameraLink + '/program.json';
         this.loadingImg = loadingImgId;
         this.failedImg = failedImgId;
         this.cameraConnected = false;
