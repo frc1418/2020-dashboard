@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>FRC Dashboard</title>
+    <link rel="stylesheet" href="css/ui.css">
+    <!-- Only scripts which do not require NodeJS features should go here (UI)  -->
+    <script src="networktables/networktables.js"></script>
+    <script src="camera.js" defer></script>
+    <script src="connections.js" defer></script>
+    <script src="ui.js" defer></script>
+</head>
+
+<body>
+    <div class="camera" id="camera1">
+        <div id="camera-stream1" class="stream"></div>
+        <svg class="crosshair" width="40" height="40">
+            <circle cx="20" cy="20" r="18" />
+            <line x1="0" y1="20" x2="40" y2="20" stroke="red" />
+            <line x1="20" y1="0" x2="20" y2="40" stroke="red" />
+        </svg>
+    </div>
+    <div class="camera" id="camera2">
+        <div id="camera-stream2" class="stream"></div>
+        <svg class="crosshair" width="40" height="40">
+            <circle cx="20" cy="20" r="18" />
+            <line x1="0" y1="20" x2="40" y2="20" stroke="red" />
+            <line x1="20" y1="0" x2="20" y2="40" stroke="red" />
+        </svg>
+    </div>
+    <div id="tuning" style="display: none;">
+        <input type="text" placeholder="Property" id="name">
+        <input type="text" placeholder="Value" id="value">
+        <button id="set">Set</button>
+        <button id="get">Get</button>
+    </div>
+    <div id="auto" style="display: none;">
+        <div class="select-container">
+            <select id="auto-select">
+                <option>No auto modes found</option>
+                <!-- This gets populated by JS -->
+            </select>
+        </div>
+        <div id="replay-auto">
+            <label for="replay-name">Recording Name</label>
+            <input type="text" placeholder="Source" id="replay-name">
+        </div>
+        <div id="auto-modes">
+            <div id="field">
+                <svg width="500px" height="250px">
+                    <rect width="50" height="50" x="120" y="100"/>
+                    <rect width="50" height="50" x="300" y="100"/>
+                    <rect width="50" height="80" x="215" y="25"/>
+                    <rect width="20" height="60" x="230" y="25"/>
+                    <text x="135" y="140" font-size=12>R1</text>
+                    <text x="315" y="140" font-size=12>R2</text>
+                    <text x="230" y="100" font-size=12>CS</text>
+                </svg>
+            </div>
+
+            <div id="auto-options">
+                <div id="field-position">
+                    <label>Left<input type="radio" id="left" name="position" value="left"></label>
+                    <label>Middle<input type="radio" id="middle" name="position" value="middle"></label>
+                    <label>Right<input type="radio" id="right" name="position" value="right"></label>
+                </div>
+                <div id="starting-level">
+                    <label>Level 1<input type="radio" id="one" name="level1" value="one"></label>
+                    <label>Level 2<input type="radio" id="two" name="level2" value="two"></label>
+                </div>
+                <div id="item-placed">
+                    <label>Hatch<input type="radio" id="hatch" name="item" value="hatch"></label>
+                    <label>Cargo<input type="radio" id="cargo" name="item" value="cargo"></label>
+                </div>
+                <div id="location">
+                    <label>R1<input type="radio" id="rocket1" name="location" value="rocket1"></label>
+                    <label>R2<input type="radio" id="rocket2" name="location" value="rocket2"></label>
+                    <label>CS<input type="radio" id="cargo-ship" name="location" value="cargo-ship"></label>
+                </div>
+            </div>
+            <div id="auto-warning">WARNING: Autonomous not configured!</div>
+            <div>
+                <p>Recording Name</p>
+                <input type="text" placeholder="Save target" id="recording-target">
+            </div>
+        </div>
+    </div>
+    <div id="robot-state"></div>
+    <!-- The main body of the dashboard -->
+    <article>
+        <div id="timer">0:00</div>
+        <!-- Tells whether robot is connected to dashboard. -->
+        <button id="tuning-button">Tuning</button>
+        <button id="auto-button">Auto</button>
+        <button id="vufine-button">Vufine</button>
+        <button id="refresh">&#8635</button>
+        <svg id="eye" width="50" height="35" viewBox="0 0 30 30">
+            <path d="M0,15.089434 C0,16.3335929 5.13666091,24.1788679 14.9348958,24.1788679
+            C24.7325019,24.1788679 29.8697917,16.3335929 29.8697917,15.089434 C29.8697917,13.8456167
+            24.7325019,6 14.9348958,6 C5.13666091,6 0,13.8456167 0,15.089434 Z M14.9348958,22.081464
+            C11.2690863,22.081464 8.29688487,18.9510766 8.29688487,15.089434 C8.29688487,11.2277914
+            11.2690863,8.09740397 14.9348958,8.09740397 C18.6007053,8.09740397 21.5725924,11.2277914
+            21.5725924,15.089434 C21.5725924,18.9510766 18.6007053,22.081464 14.9348958,22.081464
+            L14.9348958,22.081464 Z M18.2535869,15.089434 C18.2535869,17.0200844 16.7673289,18.5857907
+            14.9348958,18.5857907 C13.1018339,18.5857907 11.6162048,17.0200844 11.6162048,15.089434
+            C11.6162048,13.1587835 13.1018339,11.593419 14.9348958,11.593419 C15.9253152,11.593419
+            14.3271242,14.3639878 14.9348958,15.089434 C15.451486,15.7055336 18.2535869,14.2027016
+            18.2535869,15.089434 L18.2535869,15.089434 Z"></path>
+        </svg>
+        <div id="vision-angle"></div>
+    </article>
+    <!-- Gyroscope -->
+    <svg id="gyro" width="150" height="150">
+        <circle cx="70" cy="70" r="60" />
+        <circle cx="70" cy="70" r="40" />
+        <rect id="gyro-arm" x="66" y="5" width="8" height="65" />
+        <text id="gyro-number" x="73" y="100" font-size=12>0º</text>
+    </svg>
+    <svg id="robot-diagram" width="332" height="450">
+        <g id="robot-tower">
+            <rect x=195 y=180 width=15 height=200 />
+            <g id="robot-manipulator">
+                <!-- Ball -->
+                <circle class="ball" cx="250" cy="185" r="25" />
+                <!-- Ball Holder-->
+                <rect x="195" y="180" width="60" height="18" />
+                <rect x="245" y="190" width="10" height="18" />
+                <!-- Hatch manipulator -->
+                <g id="hatch-piston-left">
+                    <rect x=60 y=100 width=60 height=10 />
+                    <rect x=110 y=92.5 height=25 width=10 />
+                </g>
+                <!-- Right Piston -->
+                <g id="hatch-piston-right">
+                    <rect x=130 y=100 width=60 height=10 />
+                    <rect x=130 y=92.5 height=25 width=10 />
+                </g>
+                <text x=125 y=145 id="hatch-manipulator-state" font-size=20 text-anchor="middle">CLOSED</text>
+            </g>
+        </g>
+        <!-- Sponsors -->
+        <rect x=40 y=280 width=75 height=100 />
+        <text x=55 y=300 font-size=8>{vektre}</text>
+        <text x=55 y=320 font-size=8>TFO1418</text>
+        <text x=55 y=340 font-size=8>< TMG ></text>
+        <text x=60 y=360 font-size=8>GMHS</text>
+        <!-- Tires -->
+        <circle cx=60 cy=410 r=25 />
+        <circle cx=185 cy=410 r=25 />
+        <!-- Bumper -->
+        <rect x=10 y=380 width=220 height=30 rx=5 />
+        <text x=120 y=405 id="team-number" font-size=16 text-anchor="middle">1418</text>
+    </svg>
+    <svg id="spinning-svg" class="hidden"></svg>
+    <svg id="failed-svg" class="hidden"></svg>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "1418-dashboard-2020",
+  "version": "1.0.0",
+  "description": "2020 driving dashboard",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "package-mac": "electron-packager . --platform=darwin --icon=images/icon.icns --out dist/",
+    "package-linux": "electron-packager . --platform=linux --icon=images/icon.png --out dist/",
+    "package-win": "electron-packager . --platform=win32 --icon=images/icon.ico --out dist/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frc1418/2020-dashboard.git"
+  },
+  "author": "Team 1418",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/frc1418/2020-dashboard/issues"
+  },
+  "homepage": "https://github.com/frc1418/2020-dashboard#readme",
+  "devDependencies": {
+    "electron": "^7.1.2",
+    "electron-packager": "^14.1.1"
+  },
+  "dependencies": {
+    "wpilib-nt-client": "^1.7.1"
+  }
+}
