@@ -40,10 +40,10 @@ class Camera {
         let response = new Promise((resolve, reject) => {
             xhr.onload = function() {
                 if (xhr.status === 200) {
-                    resolve(data);
+                    resolve();
                     return;
                 }
-                reject(data);
+                reject();
             };
             xhr.onerror = reject;
         });
