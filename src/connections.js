@@ -1,5 +1,5 @@
 const cameraLink1 = '10.14.18.2:1181';
-const cameraLink2 = '10.14.18.2:1182'
+const cameraLink2 = '10.14.18.2:1182';
 
 const cameras = [
   new Camera(document.getElementById('camera1'), cameraLink1, '../images/spinner.svg', '../images/error.svg'),
