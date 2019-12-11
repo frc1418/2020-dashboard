@@ -34,21 +34,11 @@ class Camera {
         this.container.appendChild(img);
     }
 
-    fetchTestPage() {
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', this.testPage);
-        let response = new Promise((resolve, reject) => {
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    resolve();
-                    return;
-                }
-                reject();
-            };
-            xhr.onerror = reject;
-        });
-        xhr.send();
-        return response;
+    async fetchTestPage() {
+        let response = await fetch(this.testPage);
+        if (!response.ok) {
+            throw new Error('Camera is not yet available');
+        }
     }
 
     /**
