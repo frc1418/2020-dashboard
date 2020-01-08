@@ -1,0 +1,43 @@
+/* Global things */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+::-webkit-scrollbar { display: none; }
+body {
+    font: 16px sans-serif;
+    user-select: none;
+    color: white;
+    overflow: hidden;
+    background: #222;
+}
+/* Basic interactive components */
+button, input[type="text"], input[type="number"], .select-container, select {
+    color: white;
+    background: #444;
+    border: none;
+    font-size: 14px;
+    padding: 6px 8px;
+    cursor: pointer;
+    outline: 0;
+}
+.select-container {
+    padding: 0;
+    display: inline-block;
+}
+select {
+    border: none;
+    background: none;
+    color: white;
+    height: 30px;
+}
+option {
+    color: #333;
+}
+input[type="text"], input[type="number"] {
+    cursor: text;
+}
+input[type="checkbox"] {
+    filter: saturate(0);
+}

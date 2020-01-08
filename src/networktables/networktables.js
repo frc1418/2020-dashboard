@@ -132,6 +132,9 @@ var NetworkTables =
              * @param {string} fName The name of the function
              */
             removeKeyListener(key, fName) {
+                if (typeof keyListeners[key] === 'undefined') {
+                    return;
+                }
                 keyListeners[key] = keyListeners[key].filter(v => v.name !== fName);
             },
             /**
