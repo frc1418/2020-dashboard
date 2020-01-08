@@ -123,7 +123,16 @@ var NetworkTables =
                 if (immediateNotify && key in keys) {
                     let temp = keys[key];
                     f(key, temp.val, temp.new);
+                    temp.new = false;
                 }
+            },
+            /**
+             * Remove a function that is currently acting as a key listener by its name
+             * @param {string} key The networktables key
+             * @param {string} fName The name of the function
+             */
+            removeKeyListener(key, fName) {
+                keyListeners[key] = keyListeners[key].filter(v => v.name !== fName);
             },
             /**
              * Use this to test whether a value is present in the table or not

@@ -4,11 +4,14 @@
 <head>
     <meta charset="utf-8">
     <title>FRC Dashboard</title>
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/ui.css">
+    <link rel="stylesheet" href="css/tuning-ui.css">
     <script src="networktables/networktables.js"></script>
     <script src="camera.js"></script>
     <script src="connections.js" defer></script>
     <script src="ui.js" defer></script>
+    <script src="tuning-ui.js" defer></script>
 </head>
 
 <body>
@@ -32,10 +35,21 @@
         </div>
     </div>
     <div id="tuning" style="display: none;">
-        <input type="text" placeholder="Property" id="name">
-        <input type="text" placeholder="Value" id="value">
-        <button id="set">Set</button>
-        <button id="get">Get</button>
+        <div id="input-tuner">
+            <input id="nt-key-editor" type="text" placeholder="Key">
+            <input id="nt-value-editor" type="text" placeholder="Value">
+            <span id="hidden-key" style="display: none;"></span>
+            <button id="set-value">Set</button>
+            <button id="get-value">Get</button>
+            <span id="output-value"></span>
+        </div>
+        <p>Known Key-Value Pairs</p>
+        <table id="nt-table">
+            <thead>
+                <td>Key</td>
+                <td>Value</td>
+            </thead>
+        </table>
     </div>
     <div id="auto" style="display: none;">
         <div class="select-container">

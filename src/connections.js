@@ -7,7 +7,7 @@ const cameras = [
 ];
 
 NetworkTables.addRobotConnectionListener(onRobotConnection, true);
-// ipc.send('connect', '127.0.0.1');
+
 /**
  * Function to be called when robot connects
  * @param {boolean} connected
