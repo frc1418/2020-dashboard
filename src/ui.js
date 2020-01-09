@@ -16,3 +16,27 @@ const split = Split(['#camera1', '#camera2'], {
          localStorage.setItem('split-sizes', JSON.stringify(sizes));
     }
 });
+
+const tuningPanelButton = document.getElementById('tuning-button');
+const autoPanelButton = document.getElementById('auto-button');
+const vufinePanelButton = document.getElementById('vufine-button');
+const refreshButton = document.getElementById('refresh');
+const eye = document.getElementById('eye');
+
+NetworkTables.addKeyListener('/robot/mode', (_, value, __) => {
+    toggleVisiblity(
+        value != 'disabled', 
+        tuningPanelButton, autoPanelButton, 
+        vufinePanelButton, refreshButton, eye
+    );
+}, true);
+
+function toggleVisiblity(hidden, ...nodes) {
+    for (let node of nodes) {
+        if (hidden) {
+            node.classList.add('hidden');
+        } else {
+            node.classList.remove('hidden');
+        }
+    }
+}

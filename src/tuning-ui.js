@@ -16,7 +16,7 @@ let ntloaded = false;
 
 tuningButton.addEventListener('click', () => {
     if (!NetworkTables.isRobotConnected()) {
-        tuningTab.style.display = 'none';
+        tuningTab.classList.remove('visible')
         alert('Error: Robot is not connected!');
         return;
     }
@@ -36,7 +36,7 @@ tuningButton.addEventListener('click', () => {
         })
     }
 
-    tuningTab.style.display = tuningTab.style.display === 'none' ? 'block' : 'none'; 
+    tuningTab.classList.toggle('visible');
 });
 
 function createLivedataKey(key) {
