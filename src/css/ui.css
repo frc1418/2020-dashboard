@@ -22,7 +22,7 @@ body > * {
 #timer {
     font-family: 'DS-Digital', monospace;
     display: block;
-    font-size: 20vh;
+    font-size: 13vh;
     line-height: .8;
 }
 
@@ -256,4 +256,18 @@ body.enabled > svg {
 
 .hidden {
     display: none;
+}
+
+#status {
+    display: inline-block;
+    padding: 6px 8px;
+    background-color: #D32F2F;
+    width: 20px;
+    height: 20px;
+    vertical-align: text-bottom;
+    border-radius: 50%;
+    margin: 0px;
+    margin-left: 3px;
+    margin-top: 20px;
+    margin-right: 10px;
 }

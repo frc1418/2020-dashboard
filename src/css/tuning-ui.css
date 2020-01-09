@@ -13,7 +13,13 @@
 }
 
 #tuning {
+    transform: translateX(50vw);
     user-select: text;
     overflow: auto;
     box-shadow: -2px 0px 8px 2px rgba(0, 0, 0, 0.2);
+}
+
+#tuning.visible {
+    transform: translateX(0);
+    transition: transform 0.2s cubic-bezier(0,0,0,1);
 }
