@@ -112,22 +112,6 @@ body > * {
     margin: 0px auto;
     opacity: 0.3;
 }
-/* Tuning */
-#tuning {
-    background: inherit;
-    width: 50vw;
-    height: 100vh;
-    bottom: 0;
-    right: 0;
-    z-index: 2;
-}
-#tuning div {
-    margin: 20px 0;
-}
-#tuning p {
-    margin-bottom: 10px;
-}
-
 /* Auto */
 #auto-warning {
     display: none;
