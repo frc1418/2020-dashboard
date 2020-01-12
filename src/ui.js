@@ -19,15 +19,16 @@ const split = Split(['#camera1', '#camera2'], {
 
 const tuningPanelButton = document.getElementById('tuning-button');
 const autoPanelButton = document.getElementById('auto-button');
-const vufinePanelButton = document.getElementById('vufine-button');
+const extrasPanelButton = document.getElementById('extras-button');
 const refreshButton = document.getElementById('refresh');
 const eye = document.getElementById('eye');
+const panels = Array.from(document.getElementsByClassName('panel'));
 
 NetworkTables.addKeyListener('/robot/mode', (_, value, __) => {
     toggleVisiblity(
         value != 'disabled', 
         tuningPanelButton, autoPanelButton, 
-        vufinePanelButton, refreshButton, eye
+        extrasPanelButton, refreshButton, eye
     );
 }, true);
 

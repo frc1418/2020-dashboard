@@ -36,6 +36,7 @@ tuningButton.addEventListener('click', () => {
         })
     }
 
+    panels.filter((elem) => elem.id !== 'tuning').forEach((elem) => elem.classList.remove('visible'));
     tuningTab.classList.toggle('visible');
 });
 
