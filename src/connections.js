@@ -1,3 +1,6 @@
+const EventEmitter = require('events');
+console.log(EventEmitter);
+
 const cameraLink1 = '10.14.18.2:1181';
 const cameraLink2 = '10.14.18.2:1182';
 
