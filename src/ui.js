@@ -17,19 +17,37 @@ const split = Split(['#camera1', '#camera2'], {
     }
 });
 
+const panels = Array.from(document.getElementsByClassName('panel'));
+
 const tuningPanelButton = document.getElementById('tuning-button');
 const autoPanelButton = document.getElementById('auto-button');
 const extrasPanelButton = document.getElementById('extras-button');
 const refreshButton = document.getElementById('refresh');
 const eye = document.getElementById('eye');
-const panels = Array.from(document.getElementsByClassName('panel'));
+const statusElement = document.getElementById('status');
+
+const indicatorColors = {
+    'disconnected': '#D32F2F',
+    'connected': 'rgb(255, 217, 0)',
+    'loading-failed': '#FF8300',
+    'loaded': '#42C752'
+}
+
+connection.on('status-change', (status, _, __) => {
+    statusElement.style.backgroundColor = indicatorColors[status];
+
+    if (status === 'disconnected') {
+        panels.forEach(panel => panel.classList.remove('visible'));
+    }
+});
 
 NetworkTables.addKeyListener('/robot/mode', (_, value, __) => {
     toggleVisiblity(
         value != 'disabled', 
-        tuningPanelButton, autoPanelButton, 
-        extrasPanelButton, refreshButton, eye
+        refreshButton, eye
     );
+
+    // TODO: Decide whether or not to hide extras and tuning buttons in enabled
 }, true);
 
 function toggleVisiblity(hidden, ...nodes) {
