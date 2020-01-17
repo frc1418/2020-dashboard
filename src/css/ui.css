@@ -26,6 +26,12 @@ body > * {
     line-height: .8;
 }
 
+#launcher-rpm {
+    font-size: 10vh;
+    position: absolute;
+    bottom: 50px;
+}
+
 /* Connected/Disconnected readout superimposed over dashboard */
 #robot-state {
     height: 100vh;

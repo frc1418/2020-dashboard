@@ -25,6 +25,7 @@ const extrasPanelButton = document.getElementById('extras-button');
 const refreshButton = document.getElementById('refresh');
 const eye = document.getElementById('eye');
 const statusElement = document.getElementById('status');
+const launcherRPM = document.getElementById('launcher-rpm');
 
 const indicatorColors = {
     'disconnected': '#D32F2F',
@@ -49,6 +50,10 @@ NetworkTables.addKeyListener('/robot/mode', (_, value, __) => {
 
     // TODO: Decide whether or not to hide extras and tuning buttons in enabled
 }, true);
+
+NetworkTables.addKeyListener('/components/launcher/flywheel_rpm', (_, value, __) => {
+    launcherRPM.innerText = value + " RPM";
+});
 
 function toggleVisiblity(hidden, ...nodes) {
     for (let node of nodes) {
