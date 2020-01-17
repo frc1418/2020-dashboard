@@ -1,3 +1,25 @@
+const EventEmitter = require('events');
+
+class Connection extends EventEmitter {
+    states = ['disconnected', 'connected', 'loading-failed', 'loaded', 'camera-failure']
+
+    _status = 'disconnected';
+
+    set status(value) {
+        if (this.states.includes(value)) {
+            let old = this._status;
+            this._status = value;
+            this.emit('status-change', this.status, old, old !== value);
+        }
+    }
+
+    get status() {
+        return this._status;
+    }
+}
+
+const connection = new Connection();
+
 const cameraLink1 = '10.14.18.2:1181';
 const cameraLink2 = '10.14.18.2:1182';
 
@@ -6,25 +28,7 @@ const cameras = [
     new Camera(document.getElementById('camera2'), cameraLink2, '../images/spinner.svg', '../images/error.svg')
 ];
 
-const statusElement = document.getElementById('status');
-
-const status = {
-    _status: 'disconnected',
-    set state(value) {
-        if (this[value]) {
-            this._status = value;
-            statusElement.style.backgroundColor = this[value] != undefined ? this[value] : this.disconnected;
-        }
-    },
-    get state() {
-        return this._status;
-    },
-    'disconnected': '#D32F2F',
-    'connected': 'rgb(255, 217, 0)',
-    'loading-failed': '#FF8300',
-    'loaded': '#42C752'
-}
-
+let initialLoad = true;
 NetworkTables.addRobotConnectionListener(onRobotConnection, true);
 
 /**
@@ -32,11 +36,12 @@ NetworkTables.addRobotConnectionListener(onRobotConnection, true);
  * @param {boolean} connected
  */
 function onRobotConnection(connected) {
-    status.state = connected ? 'connected' : 'disconnected';
+    connection.status = connected ? 'connected' : 'disconnected';
     var text = connected ? 'Robot connected!' : 'Robot disconnected.';
     console.log(text);
     
-    if (status.state === 'connected') {
+    if (connection.status === 'connected' || initialLoad) {
+        initialLoad = false;
         loadComponents();
     }
 }
@@ -49,7 +54,8 @@ function loadCameras() {
     let promises = cameras.map(camera => camera.loadCameraStream());
 
     Promise.all(promises).then(successess => {
-        status.state = 'loaded';
-        successess.forEach(success => !success ? status.state = 'loading-failed' : '');
-    }).catch(_ => status.state = 'loading-failed');  // Component errored out
+        successess = successess.map(success => !success ? connection.status = 'loading-failed' : 'success');
+
+        if (successess.every(elem => elem)) connection.status = 'loaded';
+    }).catch(_ => connection.status = 'loading-failed');  // Component errored out
 }

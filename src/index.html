@@ -6,12 +6,14 @@
     <title>FRC Dashboard</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/ui.css">
+    <link rel="stylesheet" href="css/extras-ui.css">
     <link rel="stylesheet" href="css/tuning-ui.css">
     <script src="networktables/networktables.js"></script>
     <script src="camera.js"></script>
     <script src="connections.js" defer></script>
     <script src="ui.js" defer></script>
     <script src="tuning-ui.js" defer></script>
+    <script src="extras-ui.js" defer></script>
 </head>
 
 <body>
@@ -34,7 +36,10 @@
             </svg>
         </div>
     </div>
-    <div id="tuning">
+    <div id="extras" class="panel">
+        <div id="color-box"></div>
+    </div>
+    <div id="tuning" class="panel">
         <div id="input-tuner">
             <input id="nt-key-editor" type="text" placeholder="Key">
             <input id="nt-value-editor" type="text" placeholder="Value">
@@ -110,7 +115,7 @@
         <span id="status"></span>
         <button id="tuning-button">Tuning</button>
         <button id="auto-button">Auto</button>
-        <button id="vufine-button">Vufine</button>
+        <button id="extras-button">Extras</button>
         <button id="refresh">&#8635</button>
         <svg id="eye" width="50" height="35" viewBox="0 0 30 30">
             <path d="M0,15.089434 C0,16.3335929 5.13666091,24.1788679 14.9348958,24.1788679
