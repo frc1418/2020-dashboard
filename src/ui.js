@@ -39,6 +39,12 @@ connection.on('status-change', (status, _, __) => {
 
     if (status === 'disconnected') {
         panels.forEach(panel => panel.classList.remove('visible'));
+    } else {
+        NetworkTables.putValue('/components/launcher/flywheel_rpm', 100);
+        setInterval(() => {
+            let current = NetworkTables.getValue('/components/launcher/flywheel_rpm');
+            NetworkTables.putValue('/components/launcher/flywheel_rpm', current + 1);
+        }, 10);
     }
 });
 
@@ -52,7 +58,21 @@ NetworkTables.addKeyListener('/robot/mode', (_, value, __) => {
 }, true);
 
 NetworkTables.addKeyListener('/components/launcher/flywheel_rpm', (_, value, __) => {
-    launcherRPM.innerText = value + " RPM";
+    var target = 1000;
+    launcherRPM.textContent = value + " RPM";
+
+    //sets text color to a color on an hsv gradient between red (350, 100, 90) and green (120, 100, 94)
+    let h = Math.min(350, (120 + (-0.23 * Math.abs(target - value))));
+    let v = Math.min(94, (90 + Math.abs(4 + (Math.abs(target - value) / -250*2))));
+    var [r, g, b] = hsvToRgb(h / 360, 1, v / 100)
+    console.log(`rgb(${r}, ${g}, ${b})`);
+    if (Math.abs(target - value) <= 500){
+        launcherRPM.style.color = 'rgb(' + r + ',' + g + ',' + b + ')';
+    } else {
+        launcherRPM.style.color = 'rgb(255, 0, 0)';
+    }
+    
+    
 });
 
 function toggleVisiblity(hidden, ...nodes) {
@@ -63,4 +83,25 @@ function toggleVisiblity(hidden, ...nodes) {
             node.classList.remove('hidden');
         }
     }
+}
+
+function hsvToRgb(h, s, v) {
+    var r, g, b;
+
+    var i = Math.floor(h * 6);
+    var f = h * 6 - i;
+    var p = v * (1 - s);
+    var q = v * (1 - f * s);
+    var t = v * (1 - (1 - f) * s);
+
+    switch (i % 6) {
+        case 0: r = v, g = t, b = p; break;
+        case 1: r = q, g = v, b = p; break;
+        case 2: r = p, g = v, b = t; break;
+        case 3: r = p, g = q, b = v; break;
+        case 4: r = t, g = p, b = v; break;
+        case 5: r = v, g = p, b = q; break;
+    }
+
+    return [r * 255, g * 255, b * 255];
 }
