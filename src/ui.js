@@ -59,21 +59,24 @@ NetworkTables.addKeyListener('/robot/mode', (_, value, __) => {
 
 NetworkTables.addKeyListener('/components/launcher/flywheel_rpm', (_, value, __) => {
     var target = 1000;
+    var redDistance = 500;
     launcherRPM.textContent = value + " RPM";
 
-    //sets text color to a color on an hsv gradient between red (350, 100, 90) and green (120, 100, 94)
-    let h = Math.min(350, (120 + (-0.23 * Math.abs(target - value))));
-    let v = Math.min(94, (90 + Math.abs(4 + (Math.abs(target - value) / -250*2))));
-    var [r, g, b] = hsvToRgb(h / 360, 1, v / 100)
-    console.log(`rgb(${r}, ${g}, ${b})`);
-    if (Math.abs(target - value) <= 500){
-        launcherRPM.style.color = 'rgb(' + r + ',' + g + ',' + b + ')';
-    } else {
-        launcherRPM.style.color = 'rgb(255, 0, 0)';
-    }
-    
-    
+    //sets text color to a color on an hsv gradient between red (0, 100, 90) and green (120, 100, 94)
+    let [r, g, b] = sampleHSVGradient(target, redDistance, value)
+    launcherRPM.style.color = 'rgb(' + r + ' , ' + g + ' , ' + b + ')'
 });
+
+function sampleHSVGradient(target, redDistance, value) {
+    let h = Math.min(350, (120 + ((-120 / redDistance) * Math.abs(target - value))));
+    let v = Math.min(94, (90 + Math.abs(4 + ((4 * Math.abs(target - value)) / -redDistance))));
+    var [r, g, b] = hsvToRgb(h / 360, 1, v / 100)
+    if (Math.abs(target - value) <= redDistance) {
+        return [r, g, b];
+    } else {
+        return [255, 0, 0];
+    }
+}
 
 function toggleVisiblity(hidden, ...nodes) {
     for (let node of nodes) {
