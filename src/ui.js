@@ -39,12 +39,6 @@ connection.on('status-change', (status, _, __) => {
 
     if (status === 'disconnected') {
         panels.forEach(panel => panel.classList.remove('visible'));
-    } else {
-        NetworkTables.putValue('/components/launcher/flywheel_rpm', 100);
-        setInterval(() => {
-            let current = NetworkTables.getValue('/components/launcher/flywheel_rpm');
-            NetworkTables.putValue('/components/launcher/flywheel_rpm', current + 1);
-        }, 10);
     }
 });
 
