@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="css/ui.css">
     <link rel="stylesheet" href="css/extras-ui.css">
     <link rel="stylesheet" href="css/tuning-ui.css">
+    <link rel="stylesheet" href="css/auto-ui.css">
     <script src="networktables/networktables.js"></script>
     <script src="camera.js"></script>
     <script src="connections.js" defer></script>
     <script src="ui.js" defer></script>
     <script src="tuning-ui.js" defer></script>
     <script src="extras-ui.js" defer></script>
+    <script src="auto-ui.js" defer></script>
 </head>
 
 <body>
@@ -56,18 +58,20 @@
             </thead>
         </table>
     </div>
-    <div id="auto" style="display: none;">
+    <div id="auto" class="panel">
+        <label for="auto-select">Select auto mode: </label>
         <div class="select-container">
             <select id="auto-select">
                 <option>No auto modes found</option>
                 <!-- This gets populated by JS -->
             </select>
         </div>
-        <div id="replay-auto">
+        <p>Current auto mode: <span id="auto-mode-display">Undefined</span></p>
+        <!-- <div id="replay-auto">
             <label for="replay-name">Recording Name</label>
             <input type="text" placeholder="Source" id="replay-name">
-        </div>
-        <div id="auto-modes">
+        </div> -->
+        <!-- <div id="auto-modes">
             <div id="field">
                 <svg width="500px" height="250px">
                     <rect width="50" height="50" x="120" y="100" />
@@ -104,8 +108,8 @@
             <div>
                 <p>Recording Name</p>
                 <input type="text" placeholder="Save target" id="recording-target">
-            </div>
-        </div>
+            </div> -->
+        <!-- </div> -->
     </div>
     <div id="robot-state"></div>
     <!-- The main body of the dashboard -->
