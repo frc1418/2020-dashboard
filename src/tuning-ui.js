@@ -36,8 +36,7 @@ tuningButton.addEventListener('click', () => {
         })
     }
 
-    panels.filter((elem) => elem.id !== 'tuning').forEach((elem) => elem.classList.remove('visible'));
-    tuningTab.classList.toggle('visible');
+    showPanel(tuningTab, 'tuning');
 });
 
 function createLivedataKey(key) {

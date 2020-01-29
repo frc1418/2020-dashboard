@@ -9,8 +9,7 @@ extrasButton.addEventListener('click', () => {
         return;
     }
 
-    panels.filter((elem) => elem.id !== 'extras').forEach((elem) => elem.classList.remove('visible'));
-    extrasPanel.classList.toggle('visible');
+    showPanel(extrasPanel, 'extras');
 });
 
 NetworkTables.addKeyListener('/robot/color', (_, value, __) => {

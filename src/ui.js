@@ -34,6 +34,12 @@ const indicatorColors = {
     'loaded': '#42C752'
 }
 
+function showPanel(elem, id) {
+    // Hide other panels first
+    panels.filter((elem) => elem.id !== id).forEach((elem) => elem.classList.remove('visible'));
+    elem.classList.toggle('visible');
+}
+
 connection.on('status-change', (status, _, __) => {
     statusElement.style.backgroundColor = indicatorColors[status];
 
