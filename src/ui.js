@@ -26,6 +26,7 @@ const refreshButton = document.getElementById('refresh');
 const eye = document.getElementById('eye');
 const statusElement = document.getElementById('status');
 const launcherRPM = document.getElementById('launcher-rpm');
+const targetMessage = document.getElementById('target-message');
 
 const indicatorColors = {
     'disconnected': '#D32F2F',
@@ -51,6 +52,46 @@ NetworkTables.addKeyListener('/robot/mode', (_, value, __) => {
     // TODO: Decide whether or not to hide extras and tuning buttons in enabled
 }, true);
 
+const targetStates = {
+    0: {
+        description: "No target",
+        color: 'rgb(230, 0, 0)',
+        displayID: 'target-X'
+    },
+    1: {
+        description: 'Target Located',
+        color: 'rgb(235, 215, 0)',
+        displayID: ''
+    },
+    2: {
+        description: 'Target Locked',
+        color: 'rgb(0, 235, 0)',
+        displayID: 'target-check'
+    }
+}
+
+NetworkTables.addKeyListener('/limelight/target_state', (_, value, __) => {
+    let stateInfo = targetStates[value];
+    targetMessage.textContent =  stateInfo.description;
+    targetMessage.style.fill = stateInfo.color;
+    targetMessage.style.stroke = stateInfo.color;
+    for (let element of document.getElementsByClassName('target')) {
+        element.style.stroke = stateInfo.color;
+    }
+    if(value != 1){
+        displayClass(stateInfo.displayID, true)
+    } else{
+        displayClass(targetStates["0"].displayID, false)
+        displayClass(targetStates["2"].displayID, false)
+    }
+    if (value == 0) {
+        displayClass(targetStates["2"].displayID, false)
+    } else if (value == 2) {
+        displayClass(targetStates['0'].displayID, false)
+    }
+
+});
+
 NetworkTables.addKeyListener('/components/launcher/flywheel_rpm', (_, value, __) => {
     var target = 1000;
     var redDistance = 500;
@@ -60,6 +101,18 @@ NetworkTables.addKeyListener('/components/launcher/flywheel_rpm', (_, value, __)
     let [r, g, b] = sampleHSVGradient(target, redDistance, value)
     launcherRPM.style.color = 'rgb(' + r + ' , ' + g + ' , ' + b + ')'
 });
+
+function displayClass(classname, visible){
+    if(visible){
+        for (let element of document.getElementsByClassName(classname)) {
+            element.style.visibility = 'visible'
+        }
+    } else{
+        for (let element of document.getElementsByClassName(classname)) {
+            element.style.visibility = 'hidden'
+        }
+    }
+}
 
 function sampleHSVGradient(target, redDistance, value) {
     let h = Math.min(350, (120 + ((-120 / redDistance) * Math.abs(target - value))));
