@@ -79,27 +79,16 @@ NetworkTables.addKeyListener('/limelight/target_state', (_, value, __) => {
     for (let element of document.getElementsByClassName('target')) {
         element.style.stroke = stateInfo.color;
     }
+    if(value != 1){
+        displayClass(stateInfo.displayID, true)
+    } else{
+        displayClass(targetStates["0"].displayID, false)
+        displayClass(targetStates["2"].displayID, false)
+    }
     if (value == 0) {
-        for (let element of document.getElementsByClassName(stateInfo.displayID)) {
-            element.style.visibility = 'visible'
-        }
-        for (let element of document.getElementsByClassName(targetStates["2"].displayID)) {
-            element.style.visibility = 'hidden'
-        }
+        displayClass(targetStates["2"].displayID, false)
     } else if (value == 2) {
-        for (let element of document.getElementsByClassName(stateInfo.displayID)) {
-            element.style.visibility = 'visible'
-        }
-        for (let element of document.getElementsByClassName(targetStates['0'].displayID)) {
-            element.style.visibility = 'hidden'
-        }
-    } else {
-        for (let element of document.getElementsByClassName(targetStates["0"].displayID)) {
-            element.style.visibility = 'hidden'
-        }
-        for (let element of document.getElementsByClassName(targetStates["2"].displayID)) {
-            element.style.visibility = 'hidden'
-        }
+        displayClass(targetStates['0'].displayID, false)
     }
 
 });
@@ -107,6 +96,18 @@ NetworkTables.addKeyListener('/limelight/target_state', (_, value, __) => {
 NetworkTables.addKeyListener('/components/launcher/flywheel_rpm', (_, value, __) => {
     launcherRPM.innerText = value + " RPM";
 });
+
+function displayClass(classname, visible){
+    if(visible){
+        for (let element of document.getElementsByClassName(classname)) {
+            element.style.visibility = 'visible'
+        }
+    } else{
+        for (let element of document.getElementsByClassName(classname)) {
+            element.style.visibility = 'hidden'
+        }
+    }
+}
 
 function toggleVisiblity(hidden, ...nodes) {
     for (let node of nodes) {
