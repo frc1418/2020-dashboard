@@ -71,9 +71,8 @@ const targetStates = {
 }
 
 NetworkTables.addKeyListener('/limelight/target_state', (_, value, __) => {
-    console.log(value)
     let stateInfo = targetStates[value];
-    targetMessage.textContent =  stateInfo.description; //stateInfo.description;
+    targetMessage.textContent =  stateInfo.description;
     targetMessage.style.fill = stateInfo.color;
     targetMessage.style.stroke = stateInfo.color;
     for (let element of document.getElementsByClassName('target')) {
@@ -94,7 +93,13 @@ NetworkTables.addKeyListener('/limelight/target_state', (_, value, __) => {
 });
 
 NetworkTables.addKeyListener('/components/launcher/flywheel_rpm', (_, value, __) => {
-    launcherRPM.innerText = value + " RPM";
+    var target = 1000;
+    var redDistance = 500;
+    launcherRPM.textContent = value + " RPM";
+
+    //sets text color to a color on an hsv gradient between red (0, 100, 90) and green (120, 100, 94)
+    let [r, g, b] = sampleHSVGradient(target, redDistance, value)
+    launcherRPM.style.color = 'rgb(' + r + ' , ' + g + ' , ' + b + ')'
 });
 
 function displayClass(classname, visible){
@@ -109,6 +114,17 @@ function displayClass(classname, visible){
     }
 }
 
+function sampleHSVGradient(target, redDistance, value) {
+    let h = Math.min(350, (120 + ((-120 / redDistance) * Math.abs(target - value))));
+    let v = Math.min(94, (90 + Math.abs(4 + ((4 * Math.abs(target - value)) / -redDistance))));
+    var [r, g, b] = hsvToRgb(h / 360, 1, v / 100)
+    if (Math.abs(target - value) <= redDistance) {
+        return [r, g, b];
+    } else {
+        return [255, 0, 0];
+    }
+}
+
 function toggleVisiblity(hidden, ...nodes) {
     for (let node of nodes) {
         if (hidden) {
@@ -117,4 +133,25 @@ function toggleVisiblity(hidden, ...nodes) {
             node.classList.remove('hidden');
         }
     }
+}
+
+function hsvToRgb(h, s, v) {
+    var r, g, b;
+
+    var i = Math.floor(h * 6);
+    var f = h * 6 - i;
+    var p = v * (1 - s);
+    var q = v * (1 - f * s);
+    var t = v * (1 - (1 - f) * s);
+
+    switch (i % 6) {
+        case 0: r = v, g = t, b = p; break;
+        case 1: r = q, g = v, b = p; break;
+        case 2: r = p, g = v, b = t; break;
+        case 3: r = p, g = q, b = v; break;
+        case 4: r = t, g = p, b = v; break;
+        case 5: r = v, g = p, b = q; break;
+    }
+
+    return [r * 255, g * 255, b * 255];
 }
