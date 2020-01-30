@@ -32,6 +32,34 @@ body > * {
     bottom: 50px;
 }
 
+#target-svg {
+    bottom: 0px;
+    right: 0px;
+}
+
+.target {
+    stroke-width: 10px;
+    stroke: rgb(230, 0, 0);
+}
+
+#target-message {
+    text-anchor: middle;
+    stroke-width: 1px;
+    fill: rgb(230, 0, 0);
+}
+
+.target-X {
+    visibility: visible;
+    stroke-width: 10px;
+    stroke: rgb(230, 0, 0);
+}
+
+.target-check {
+    visibility: hidden;
+    stroke-width: 10px;
+    stroke: rgb(0, 235, 0);
+}
+
 /* Connected/Disconnected readout superimposed over dashboard */
 #robot-state {
     height: 100vh;

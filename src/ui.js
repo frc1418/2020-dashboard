@@ -26,6 +26,7 @@ const refreshButton = document.getElementById('refresh');
 const eye = document.getElementById('eye');
 const statusElement = document.getElementById('status');
 const launcherRPM = document.getElementById('launcher-rpm');
+const targetMessage = document.getElementById('target-message');
 
 const indicatorColors = {
     'disconnected': '#D32F2F',
@@ -50,6 +51,58 @@ NetworkTables.addKeyListener('/robot/mode', (_, value, __) => {
 
     // TODO: Decide whether or not to hide extras and tuning buttons in enabled
 }, true);
+
+const targetStates = {
+    0: {
+        description: "No target",
+        color: 'rgb(230, 0, 0)',
+        displayID: 'target-X'
+    },
+    1: {
+        description: 'Target Located',
+        color: 'rgb(235, 215, 0)',
+        displayID: ''
+    },
+    2: {
+        description: 'Target Locked',
+        color: 'rgb(0, 235, 0)',
+        displayID: 'target-check'
+    }
+}
+
+NetworkTables.addKeyListener('/limelight/target_state', (_, value, __) => {
+    console.log(value)
+    let stateInfo = targetStates[value];
+    targetMessage.textContent =  stateInfo.description; //stateInfo.description;
+    targetMessage.style.fill = stateInfo.color;
+    targetMessage.style.stroke = stateInfo.color;
+    for (let element of document.getElementsByClassName('target')) {
+        element.style.stroke = stateInfo.color;
+    }
+    if (value == 0) {
+        for (let element of document.getElementsByClassName(stateInfo.displayID)) {
+            element.style.visibility = 'visible'
+        }
+        for (let element of document.getElementsByClassName(targetStates["2"].displayID)) {
+            element.style.visibility = 'hidden'
+        }
+    } else if (value == 2) {
+        for (let element of document.getElementsByClassName(stateInfo.displayID)) {
+            element.style.visibility = 'visible'
+        }
+        for (let element of document.getElementsByClassName(targetStates['0'].displayID)) {
+            element.style.visibility = 'hidden'
+        }
+    } else {
+        for (let element of document.getElementsByClassName(targetStates["0"].displayID)) {
+            element.style.visibility = 'hidden'
+        }
+        for (let element of document.getElementsByClassName(targetStates["2"].displayID)) {
+            element.style.visibility = 'hidden'
+        }
+    }
+
+});
 
 NetworkTables.addKeyListener('/components/launcher/flywheel_rpm', (_, value, __) => {
     launcherRPM.innerText = value + " RPM";
