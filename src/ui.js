@@ -27,6 +27,7 @@ const eye = document.getElementById('eye');
 const statusElement = document.getElementById('status');
 const launcherRPM = document.getElementById('launcher-rpm');
 const targetMessage = document.getElementById('target-message');
+const gyroArm = document.getElementById('gyro-arm');
 
 const indicatorColors = {
     'disconnected': '#D32F2F',
@@ -57,6 +58,31 @@ NetworkTables.addKeyListener('/robot/mode', (_, value, __) => {
 
     // TODO: Decide whether or not to hide extras and tuning buttons in enabled
 }, true);
+
+NetworkTables.addKeyListener('/robot/angle', (_, value, __) => {
+    if (NetworkTables.getValue('/robot/flipped') == true) {
+        if (value >= 180) {
+            value = parseInt(value) - 180;
+        } else{
+            value = parseInt(value) + 180;
+        }
+    }
+    gyroArm.style.transform = 'rotate(' + value + 'deg)';
+    document.getElementById('gyro-number').textContent = value + "º";
+});
+
+NetworkTables.addKeyListener('/robot/flipped', (_, value, __) => {
+    var angle = NetworkTables.getValue('/robot/angle');
+    if (value == true) {
+        if (angle >= 180){
+            angle = parseInt(angle) - 180;
+        } else {
+            angle = parseInt(angle) + 180;
+        }
+    } 
+    gyroArm.style.transform = 'rotate(' + angle + 'deg)';
+    document.getElementById('gyro-number').textContent = angle + "º";
+});
 
 const targetStates = {
     0: {
