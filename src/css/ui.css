@@ -235,10 +235,12 @@ text {
     right: 0;
 }
 #gyro-arm {
-    transform-origin: bottom;
+    fill: lightblue;
+    stroke: darkblue;
+    transform-origin: calc(50% + 5px) calc(50% + 5px);
 }
 #gyro-number {
-    font-size: 25px;
+    font-size: 20px;
     text-anchor: middle;
 }
 
