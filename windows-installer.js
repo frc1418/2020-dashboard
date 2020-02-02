@@ -1,7 +1,7 @@
 const electronInstaller = require('electron-winstaller');
 
 electronInstaller.createWindowsInstaller({
-    appDirectory: '.',
+    appDirectory: '/src',
     outputDirectory: '.',
     authors: 'Team 1418',
     exe: 'windows-installer.exe'

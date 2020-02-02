@@ -1,0 +1,15 @@
+{
+  "name": "1418-dashboard-2020",
+  "version": "1.0.0",
+  "description": "2020 driving dashboard",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frc1418/2020-dashboard.git"
+  },
+  "author": "Team 1418",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/frc1418/2020-dashboard/issues"
+  },
+  "homepage": "https://github.com/frc1418/2020-dashboard#readme",
+}
