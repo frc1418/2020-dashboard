@@ -1,3 +1,5 @@
+if (require('electron-squirrel-startup')) return;
+
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 
