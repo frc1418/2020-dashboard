@@ -11,16 +11,16 @@ jobs:
         uses: actions/checkout@master
       - name: Install Dependencies
         run: npm install
-	  - name: Package Applications
-	    run: |
-		  npm run package-win
-		  npm run package-mac
-		  npm run package-linux
-	  - name: Zip Applications
-	    run: |
-		  Compress-Archive ${{ github.workspace }}/dist/1418_dashboard_2020-darwin-x64$ ${{ github.workspace }}/1418_dashboard_2020-darwin-x64.zip
-		  Compress-Archive ${{ github.workspace }}/dist/1418_dashboard_2020-linux-x64 ${{ github.workspace }}/1418_dashboard_2020-linux-x64.zip
-	  - name: Build Project Windows
+      - name: Package Applications
+        run: |
+          npm run package-win
+          npm run package-mac
+          npm run package-linux
+      - name: Zip Applications
+        run: |
+          Compress-Archive ${{ github.workspace }}/dist/1418-dashboard-2020-darwin-x64 ${{ github.workspace }}/1418-dashboard-2020-darwin-x64.zip
+          Compress-Archive ${{ github.workspace }}/dist/1418-dashboard-2020-linux-x64 ${{ github.workspace }}/1418-dashboard-2020-linux-x64.zip
+      - name: Build Project Windows
         run: node create-windows-installer.js
       - name: Create Release
         id: create_release
@@ -45,7 +45,7 @@ jobs:
           asset_path: ${{ github.workspace }}/Dashboard-Setup.exe
           asset_name: Dashboard-Setup-Windows.exe
           asset_content_type: application/vnd.microsoft.portable-executable
-	  - name: Upload Release Asset MacOS
+      - name: Upload Release Asset MacOS
         id: upload-release-asset-macos
         uses: actions/upload-release-asset@v1.0.1
         env:
@@ -55,7 +55,7 @@ jobs:
           asset_path: ${{ github.workspace }}/1418_dashboard_2020-darwin-x64.zip
           asset_name: 1418-dashboard-2020-linux.zip
           asset_content_type: application/zip
-	  - name: Upload Release Asset Linux
+      - name: Upload Release Asset Linux
         id: upload-release-asset-linux
         uses: actions/upload-release-asset@v1.0.1
         env:
