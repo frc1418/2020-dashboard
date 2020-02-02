@@ -21,6 +21,7 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
+          allowUpdates: true
           body: |
             Changes in this Release
             - Auto generated installer
