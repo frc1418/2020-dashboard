@@ -17,8 +17,8 @@ jobs:
           npm run package-mac
       - name: Zip Applications
         run: |
-          Compress-Archive ${{ github.workspace }}/dist/1418-dashboard-2020-darwin-x64 ${{ github.workspace }}/1418-dashboard-2020-darwin-x64.zip
-          Compress-Archive ${{ github.workspace }}/dist/1418-dashboard-2020-linux-x64 ${{ github.workspace }}/1418-dashboard-2020-linux-x64.zip
+          Compress-Archive ${{ github.workspace }}\dist\1418-dashboard-2020-darwin-x64 ${{ github.workspace }}\1418-dashboard-2020-darwin-x64.zip
+          Compress-Archive ${{ github.workspace }}\dist\1418-dashboard-2020-linux-x64 ${{ github.workspace }}\1418-dashboard-2020-linux-x64.zip
       - name: Build Project Windows
         run: node create-windows-installer.js
       - name: Create Release
@@ -41,7 +41,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ github.workspace }}/Dashboard-Setup.exe
+          asset_path: ${{ github.workspace }}\Dashboard-Setup.exe
           asset_name: Dashboard-Setup-Windows.exe
           asset_content_type: application/vnd.microsoft.portable-executable
       - name: Upload Release Asset MacOS
@@ -51,7 +51,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ github.workspace }}/1418_dashboard_2020-darwin-x64.zip
+          asset_path: ${{ github.workspace }}\1418_dashboard_2020-darwin-x64.zip
           asset_name: 1418-dashboard-2020-linux.zip
           asset_content_type: application/zip
       - name: Upload Release Asset Linux
@@ -61,6 +61,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ github.workspace }}/1418_dashboard_2020-linux-x64.zip
+          asset_path: ${{ github.workspace }}\1418_dashboard_2020-linux-x64.zip
           asset_name: 1418-dashboard-2020-macos.zip
           asset_content_type: application/zip
