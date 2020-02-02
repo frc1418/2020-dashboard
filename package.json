@@ -22,6 +22,7 @@
   "devDependencies": {
     "electron": "^7.1.8",
     "electron-packager": "^14.1.1"
+    "electron-winstaller": "ˆ4.0.0"
   },
   "dependencies": {
     "split.js": "^1.5.11",
