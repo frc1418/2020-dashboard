@@ -71,19 +71,6 @@ NetworkTables.addKeyListener('/robot/angle', (_, value, __) => {
     document.getElementById('gyro-number').textContent = value + "º";
 });
 
-NetworkTables.addKeyListener('/robot/flipped', (_, value, __) => {
-    var angle = NetworkTables.getValue('/robot/angle');
-    if (value == true) {
-        if (angle >= 180){
-            angle = parseInt(angle) - 180;
-        } else {
-            angle = parseInt(angle) + 180;
-        }
-    } 
-    gyroArm.style.transform = 'rotate(' + angle + 'deg)';
-    document.getElementById('gyro-number').textContent = angle + "º";
-});
-
 const targetStates = {
     0: {
         description: "No target",
