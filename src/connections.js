@@ -20,8 +20,8 @@ class Connection extends EventEmitter {
 
 const connection = new Connection();
 
-const cameraLink1 = '10.14.18.2:1181';
-const cameraLink2 = '10.14.18.2:1182';
+const cameraLink1 = 'http://10.14.18.2:1181';
+const cameraLink2 = 'http://10.14.18.2:1182';
 
 const cameras = [
     new Camera(document.getElementById('camera1'), cameraLink1, '../images/spinner.svg', '../images/error.svg'),
@@ -42,7 +42,9 @@ function onRobotConnection(connected) {
     
     if (connection.status === 'connected' || initialLoad) {
         initialLoad = false;
+        
         loadComponents();
+        
     }
 }
 
