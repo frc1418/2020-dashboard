@@ -17,8 +17,9 @@ class Camera {
     constructor(parent, cameraLink, loadingImgId, failedImgId) {
         this.container = parent.querySelector('.stream');
         this.crosshair = parent.querySelector('.crosshair');
-        this.stream = cameraLink + '/?action=stream';
-        this.testPage = cameraLink + '/program.json';
+        this.stream = cameraLink + '/stream.mjpg';
+        //this.stream = cameraLink2 + "/stream.mjpg";
+        this.testPage = cameraLink + '/settings.json';
         this.loadingImg = loadingImgId;
         this.failedImg = failedImgId;
         this.cameraConnected = false;
@@ -35,7 +36,13 @@ class Camera {
     }
 
     async fetchTestPage() {
-        let response = await fetch(this.testPage);
+        let response = '';
+        try {
+            response = await fetch(this.testPage);
+        } catch (e) {
+            console.log(e);
+        }
+        console.log(`Response: ${response}`);
         if (!response.ok) {
             throw new Error('Camera is not yet available');
         }
@@ -87,8 +94,13 @@ class Camera {
             return false;
         }
 
+        console.log('Camera success');
+
         this.cameraConnected = true;
         this.createImgElement(this.stream);
+        setTimeout(() => {
+            this.createImgElement(this.stream);
+        }, 1000);
         this.crosshair.style.display = 'block';
 
         return true;
