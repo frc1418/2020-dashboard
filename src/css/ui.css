@@ -13,6 +13,12 @@ body > * {
     width: 2.5vw;
 }
 
+.camera-refresh {
+    height: 29px;
+    position: absolute;
+    top: 30px;
+}
+
 /* Timer */
 @font-face {
     font-family: 'DS-Digital';
