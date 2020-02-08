@@ -28,6 +28,9 @@ const statusElement = document.getElementById('status');
 const launcherRPM = document.getElementById('launcher-rpm');
 const targetMessage = document.getElementById('target-message');
 const gyroArm = document.getElementById('gyro-arm');
+const controlPanelImg = document.getElementById('controlPanelImg');
+const cameraRefresh1 = document.getElementById('camera1-refresh');
+const cameraRefresh2 = document.getElementById('camera2-refresh');
 
 const indicatorColors = {
     'disconnected': '#D32F2F',
@@ -50,10 +53,27 @@ connection.on('status-change', (status, _, __) => {
     }
 });
 
+
+cameraRefresh1.addEventListener('click', () => {
+    if (!NetworkTables.isRobotConnected()) {
+        alert('Error: Robot is not connected!');
+        return;
+    }
+    cameras[0].loadCameraStream();
+});
+
+cameraRefresh2.addEventListener('click', () => {
+    if (!NetworkTables.isRobotConnected()) {
+        alert('Error: Robot is not connected!');
+        return;
+    }
+    cameras[1].loadCameraStream();
+});
+
 NetworkTables.addKeyListener('/robot/mode', (_, value, __) => {
     toggleVisiblity(
         value != 'disabled', 
-        refreshButton, eye
+        refreshButton, eye, cameraRefresh1, cameraRefresh2
     );
 
     // TODO: Decide whether or not to hide extras and tuning buttons in enabled
@@ -119,6 +139,15 @@ NetworkTables.addKeyListener('/components/launcher/flywheel_rpm', (_, value, __)
     //sets text color to a color on an hsv gradient between red (0, 100, 90) and green (120, 100, 94)
     let [r, g, b] = sampleHSVGradient(target, redDistance, value)
     launcherRPM.style.color = 'rgb(' + r + ' , ' + g + ' , ' + b + ')'
+});
+
+NetworkTables.addKeyListener('/Controllers/panelSpinner/isSpinning', (_, value, __) => {
+    console.log(value);
+    if (value){
+        controlPanelImg.classList.add('spinning');
+    } else {
+        controlPanelImg.classList.remove('spinning');
+    }
 });
 
 function displayClass(classname, visible){

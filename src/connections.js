@@ -1,6 +1,4 @@
 const EventEmitter = require('events');
-const cameraRefresh1 = document.getElementById('camera1-refresh');
-const cameraRefresh2 = document.getElementById('camera2-refresh');
 
 class Connection extends EventEmitter {
     states = ['disconnected', 'connected', 'loading-failed', 'loaded', 'camera-failure']
@@ -63,19 +61,3 @@ function loadCameras() {
         if (successess.every(elem => elem)) connection.status = 'loaded';
     }).catch(_ => connection.status = 'loading-failed');  // Component errored out
 }
-
-cameraRefresh1.addEventListener('click', () => {
-    if (!NetworkTables.isRobotConnected()) {
-        alert('Error: Robot is not connected!');
-        return;
-    }
-    cameras[0].loadCameraStream();
-});
-
-cameraRefresh2.addEventListener('click', () => {
-    if (!NetworkTables.isRobotConnected()) {
-        alert('Error: Robot is not connected!');
-        return;
-    }
-    cameras[1].loadCameraStream();
-});
