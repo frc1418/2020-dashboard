@@ -32,6 +32,13 @@ body > * {
     line-height: .8;
 }
 
+#controlPanelImg {
+    position: absolute;
+    bottom: 130px;
+    height: 100px;
+    width: 100px;
+}
+
 #launcher-rpm {
     font-size: 10vh;
     position: absolute;
@@ -296,4 +303,17 @@ body.enabled > svg {
     margin-left: 3px;
     margin-top: 20px;
     margin-right: 10px;
+}
+
+.spinning {
+    animation: spin-color-panel 0.5s linear infinite forwards;
+}
+
+@keyframes spin-color-panel {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
