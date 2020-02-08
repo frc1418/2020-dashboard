@@ -305,15 +305,32 @@ body.enabled > svg {
     margin-right: 10px;
 }
 
-.spinning {
-    animation: spin-color-panel 0.5s linear infinite forwards;
+.spinningRot {
+    animation: spin-color-panel-Rot 0.5s linear infinite forwards;
 }
 
-@keyframes spin-color-panel {
+.spinningPos {
+    animation: spin-color-panel-Pos 1s infinite forwards;
+}
+
+@keyframes spin-color-panel-Rot {
     from {
         transform: rotate(0deg);
     }
     to {
         transform: rotate(360deg);
     }
+}
+
+@keyframes spin-color-panel-Pos {
+    0% {
+        transform: rotate(-22.5deg);
+    }
+    50% {
+        transform: rotate(22.5deg);
+    }
+    100% {
+        transform: rotate(-22.5deg);
+    }
+
 }
