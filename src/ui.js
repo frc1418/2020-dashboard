@@ -141,12 +141,21 @@ NetworkTables.addKeyListener('/components/launcher/flywheel_rpm', (_, value, __)
     launcherRPM.style.color = 'rgb(' + r + ' , ' + g + ' , ' + b + ')'
 });
 
-NetworkTables.addKeyListener('/Controllers/panelSpinner/isSpinning', (_, value, __) => {
+NetworkTables.addKeyListener('/Controllers/panelSpinner/isSpinningRotation', (_, value, __) => {
     console.log(value);
     if (value){
-        controlPanelImg.classList.add('spinning');
+        controlPanelImg.classList.add('spinningRot');
     } else {
-        controlPanelImg.classList.remove('spinning');
+        controlPanelImg.classList.remove('spinningRot');
+    }
+});
+
+NetworkTables.addKeyListener('/Controllers/panelSpinner/isSpinningPosition', (_, value, __) => {
+    console.log(value);
+    if (value) {
+        controlPanelImg.classList.add('spinningPos');
+    } else {
+        controlPanelImg.classList.remove('spinningPos');
     }
 });
 
