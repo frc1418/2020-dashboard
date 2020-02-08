@@ -31,7 +31,7 @@ tuningButton.addEventListener('click', () => {
         // Create rows for any network tables keys that were not sent immediately 
         // after connecting to the robot
         NetworkTables.addGlobalListener((key, _, isNew) => {
-            if (isNew) {
+            if (isNew && !Array.from(table.children).map((elem) => elem.firstChild.textContent).includes(key)) {
                 createLivedataKey(key);
             }
         })
