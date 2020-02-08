@@ -8,6 +8,7 @@ const ntEdit = {
     hiddenKey: document.getElementById('hidden-key')
 }
 
+const ntTableFilter = document.getElementById('nt-search');
 const tuningButton = document.getElementById('tuning-button');
 const table = document.getElementById('nt-table');
 const tuningTab = document.getElementById('tuning');
@@ -66,6 +67,20 @@ ntEdit.getButton.addEventListener('click', () => {
         ntEdit.hiddenKey.textContent = key;
     }, true)
 })
+
+ntTableFilter.addEventListener('keyup', (e) => {
+    for (let elem of table.children) {
+        let key = elem.firstChild;
+        let filterString = e.target.value.toLowerCase();
+
+        if (!key.textContent.toLowerCase().includes(filterString)) {
+            elem.classList.add('hidden');
+        } else {
+            let span = 
+            elem.classList.remove('hidden');
+        }
+    }
+});
 
 function createRow(keyText) {
     let row = document.createElement('tr');
