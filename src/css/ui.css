@@ -159,6 +159,27 @@ body > * {
     margin: 0px auto;
     opacity: 0.3;
 }
+
+#balls-indicator-left {
+    position: absolute;
+    right: 0;
+}
+
+#balls-indicator-right {
+    position: absolute;
+    left: 0;
+}
+
+.balls-bar {
+    fill: rgb(0, 235, 0);
+    stroke-width: 0px;
+}
+
+.balls-background {
+    fill: rgb(230, 0, 0);
+    stroke-width: 0px;
+}
+
 /* Auto */
 #auto-warning {
     display: none;

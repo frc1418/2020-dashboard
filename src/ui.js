@@ -31,6 +31,7 @@ const gyroArm = document.getElementById('gyro-arm');
 const controlPanelImg = document.getElementById('controlPanelImg');
 const cameraRefresh1 = document.getElementById('camera1-refresh');
 const cameraRefresh2 = document.getElementById('camera2-refresh');
+const ballsIndicatorBar = document.getElementsByClassName("balls-bar");
 
 const indicatorColors = {
     'disconnected': '#D32F2F',
@@ -156,6 +157,17 @@ NetworkTables.addKeyListener('/Controllers/panelSpinner/isSpinningPosition', (_,
         controlPanelImg.classList.add('spinningPos');
     } else {
         controlPanelImg.classList.remove('spinningPos');
+    }
+});
+
+NetworkTables.addKeyListener('/components/intake/ballsCollected', (_, value, __) => {
+    for (let element of ballsIndicatorBar){
+        var height = 7.5 * value;
+        var yValue = 37.5 - height;
+        console.log("height: " + height)
+        console.log("yValue: " + yValue)
+        element.setAttribute('height', `${height}vw`);
+        element.setAttribute('y', `${yValue}vw`)
     }
 });
 
