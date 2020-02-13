@@ -32,6 +32,8 @@ const controlPanelImg = document.getElementById('controlPanelImg');
 const cameraRefresh1 = document.getElementById('camera1-refresh');
 const cameraRefresh2 = document.getElementById('camera2-refresh');
 const ballsIndicatorBar = document.getElementsByClassName("balls-bar");
+const messageButton = document.getElementById("message-button")
+const messageText = document.getElementById("message-text")
 
 const indicatorColors = {
     'disconnected': '#D32F2F',
@@ -69,6 +71,56 @@ cameraRefresh2.addEventListener('click', () => {
         return;
     }
     cameras[1].loadCameraStream();
+});
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+messageButton.addEventListener('click', () => {
+    var messages = [
+        "You're doing great!",
+        "I think we're winning!",
+        "Go 1418!",
+        "Our robot is the best!",
+        "I think I love you",
+        "Detroit, here we come!",
+        "Use the force and win!",
+        "Do, there is neither do not nor try",
+        "Robotics is fun!",
+        "Robotics IS a sport!",
+        "Victory we most certainly have!",
+        "History goes to the (vae) Victors!",
+        "Sarah is totally the best captain!",
+        "Sofia is totally the best captain!",
+        "Tahaseen is totally the best captain!",
+        "Steven is our Knight is shining armor!",
+        "Jesus loves you",
+        "You're a terrible driver!",
+        "Andrew is the only real programmer",
+        "It's not my fault the cameras don't work",
+        "This message is brought to you by Cyclebar!",
+        "This message is brought to you by Pizzaria Orso!",
+        "This message is brought to you by Flippn' Pizza!",
+        "This message is brought to you by Baroody Camps!",
+        "This message is brought to you by Dixie!",
+        "Our robot is more structurally sound than our school!",
+        "The librarians hate us, but that's okay!",
+        "Yahweh loves you",
+        "The Fitness Gram Pacer Test is a multistage aerobic capacity test...",
+        "This dashboard has been invaded by goose!",
+        "iBoss knows where you live!",
+        "Shrek is love, Shrek is life."
+    ]
+    messageText.textContent = messages[getRandomInt(0, messages.length-1)];
+    messageButton.style.visibility = "hidden"
+    setTimeout(() => {
+        messageText.textContent = "";
+        messageButton.style.visibility = "visible"
+    }, 1000)
+
 });
 
 NetworkTables.addKeyListener('/robot/mode', (_, value, __) => {
