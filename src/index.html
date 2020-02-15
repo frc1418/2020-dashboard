@@ -80,49 +80,16 @@
             </select>
         </div>
         <p>Current auto mode: <span id="auto-mode-display">Undefined</span></p>
-        <!-- <div id="replay-auto">
-            <label for="replay-name">Recording Name</label>
-            <input type="text" placeholder="Source" id="replay-name">
-        </div> -->
-        <!-- <div id="auto-modes">
-            <div id="field">
-                <svg width="500px" height="250px">
-                    <rect width="50" height="50" x="120" y="100" />
-                    <rect width="50" height="50" x="300" y="100" />
-                    <rect width="50" height="80" x="215" y="25" />
-                    <rect width="20" height="60" x="230" y="25" />
-                    <text x="135" y="140" font-size=12>R1</text>
-                    <text x="315" y="140" font-size=12>R2</text>
-                    <text x="230" y="100" font-size=12>CS</text>
-                </svg>
-            </div>
-
-            <div id="auto-options">
-                <div id="field-position">
-                    <label>Left<input type="radio" id="left" name="position" value="left"></label>
-                    <label>Middle<input type="radio" id="middle" name="position" value="middle"></label>
-                    <label>Right<input type="radio" id="right" name="position" value="right"></label>
-                </div>
-                <div id="starting-level">
-                    <label>Level 1<input type="radio" id="one" name="level1" value="one"></label>
-                    <label>Level 2<input type="radio" id="two" name="level2" value="two"></label>
-                </div>
-                <div id="item-placed">
-                    <label>Hatch<input type="radio" id="hatch" name="item" value="hatch"></label>
-                    <label>Cargo<input type="radio" id="cargo" name="item" value="cargo"></label>
-                </div>
-                <div id="location">
-                    <label>R1<input type="radio" id="rocket1" name="location" value="rocket1"></label>
-                    <label>R2<input type="radio" id="rocket2" name="location" value="rocket2"></label>
-                    <label>CS<input type="radio" id="cargo-ship" name="location" value="cargo-ship"></label>
-                </div>
-            </div>
-            <div id="auto-warning">WARNING: Autonomous not configured!</div>
-            <div>
-                <p>Recording Name</p>
-                <input type="text" placeholder="Save target" id="recording-target">
-            </div> -->
-        <!-- </div> -->
+        <label for="starting-pos-select">Select starting position: </label>
+        <div class="select-container">
+            <select id="starting-pos-select">
+                <option>LEFT</option>
+                <option>CENTER</option>
+                <option>RIGHT</option>
+                <option>LIMELIGHT</option>
+            </select>
+        </div>
+        <p>Current starting position: <span id="starting-pos-display">Undefined</span></p>
     </div>
     <div id="robot-state"></div>
     <!-- The main body of the dashboard -->
