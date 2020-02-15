@@ -206,11 +206,26 @@ NetworkTables.addKeyListener('/Controllers/panelSpinner/isSpinningRotation', (_,
 });
 
 NetworkTables.addKeyListener('/Controllers/panelSpinner/isSpinningPosition', (_, value, __) => {
-    console.log(value);
     if (value) {
         controlPanelImg.classList.add('spinningPos');
     } else {
         controlPanelImg.classList.remove('spinningPos');
+    }
+});
+
+NetworkTables.addKeyListener('/components/controlpanel/ntSolenoid_state', (_, value, __) => {
+    if (value == true) {
+        controlPanelImg.classList.add('expandPanel');
+        setTimeout(() => {
+            controlPanelImg.style.transform = 'scale(1, 1)';
+            controlPanelImg.classList.remove('expandPanel');
+        }, 1000)
+    } else {
+        controlPanelImg.classList.add('shrinkPanel');
+        setTimeout(() => {
+            controlPanelImg.style.transform = 'scale(0.1, 0.1)';
+            controlPanelImg.classList.remove('shrinkPanel');
+        }, 1000)
     }
 });
 
