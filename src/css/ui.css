@@ -33,6 +33,7 @@ body > * {
 }
 
 #controlPanelImg {
+    align-content: center;
     position: absolute;
     bottom: 130px;
     height: 100px;
@@ -350,12 +351,20 @@ body.enabled > svg {
     animation: spin-color-panel-Pos 1s infinite forwards;
 }
 
-@keyframes spin-color-panel-Rot {
+.expandPanel {
+    animation: expand-color-panel 1s linear normal;
+}
+
+.shrinkPanel {
+    animation: expand-color-panel 1s linear reverse;
+}
+
+@keyframes expand-color-panel {
     from {
-        transform: rotate(0deg);
+        transform: scale(0.1, 0.1);
     }
     to {
-        transform: rotate(360deg);
+        transform: scale(1, 1);
     }
 }
 
@@ -370,4 +379,13 @@ body.enabled > svg {
         transform: rotate(-22.5deg);
     }
 
+}
+
+@keyframes spin-color-panel-Rot {
+    from {
+        scale: 10%;
+    }
+    to {
+        scale: 100%;
+    }
 }
