@@ -132,7 +132,8 @@ NetworkTables.addKeyListener('/robot/mode', (_, value, __) => {
     // TODO: Decide whether or not to hide extras and tuning buttons in enabled
 }, true);
 
-NetworkTables.addKeyListener('/robot/angle', (_, value, __) => {
+NetworkTables.addKeyListener('/align/angle', (_, value, __) => {
+    value = Math.round(parseInt(value));
     if (NetworkTables.getValue('/robot/flipped') == true) {
         if (value >= 180) {
             value = parseInt(value) - 180;
@@ -185,6 +186,7 @@ NetworkTables.addKeyListener('/limelight/target_state', (_, value, __) => {
 });
 
 NetworkTables.addKeyListener('/components/launcher/flywheel_rpm', (_, value, __) => {
+    //var target = NetworkTables.getValue('/components/launcher/target_rpm');
     var target = 1000;
     var redDistance = 500;
     launcherRPM.textContent = value + " RPM";
