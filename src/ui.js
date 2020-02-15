@@ -213,7 +213,7 @@ NetworkTables.addKeyListener('/Controllers/panelSpinner/isSpinningPosition', (_,
     }
 });
 
-NetworkTables.addKeyListener('/components/controlpanel/ntSolenoid_state', (_, value, __) => {
+NetworkTables.addKeyListener('/robot/ntSolenoid_state', (_, value, __) => {
     if (value == true) {
         controlPanelImg.classList.add('expandPanel');
         setTimeout(() => {
