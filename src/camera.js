@@ -15,13 +15,20 @@ class Camera {
     * @param {Integer} failedImgId
     */
     constructor(parent, cameraLink, loadingImgId, failedImgId) {
-        this.container = parent.querySelector('.stream');
-        this.crosshair = parent.querySelector('.crosshair');
+        if (parent != null){
+            this.container = parent.querySelector('.stream');
+            this.crosshair = parent.querySelector('.crosshair');
+        }
         this.stream = cameraLink + '/stream.mjpg';
         this.testPage = cameraLink + '/settings.json';
         this.loadingImg = loadingImgId;
         this.failedImg = failedImgId;
         this.cameraConnected = false;
+
+        if (cameraLink == 'http://10.14.18.11:5801'){
+            this.testPage = cameraLink;
+            this.stream = 'http://10.14.18.11:5800';
+        }
     }
 
     createImgElement(link, icon=false) {
@@ -104,4 +111,10 @@ class Camera {
 
         return true;
     }
+
+    setParent(parent) {
+        this.container = parent.querySelector('.stream');
+        this.crosshair = parent.querySelector('.crosshair');
+    }
+
 }
