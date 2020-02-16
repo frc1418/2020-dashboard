@@ -22,10 +22,12 @@ const connection = new Connection();
 
 const cameraLink1 = 'http://10.14.18.2:1181';
 const cameraLink2 = 'http://10.14.18.2:1182';
+const limelightLink = 'http://10.14.18.11:5801';
 
 const cameras = [
     new Camera(document.getElementById('camera1'), cameraLink1, '../images/spinner.svg', '../images/error.svg'),
-    new Camera(document.getElementById('camera2'), cameraLink2, '../images/spinner.svg', '../images/error.svg')
+    new Camera(document.getElementById('camera2'), cameraLink2, '../images/spinner.svg', '../images/error.svg'),
+    new Camera(null, limelightLink, '../images/spinner.svg', '../images/error.svg')
 ];
 
 let initialLoad = true;
@@ -36,6 +38,10 @@ NetworkTables.addRobotConnectionListener(onRobotConnection, true);
  * @param {boolean} connected
  */
 function onRobotConnection(connected) {
+    if (connection.status == (connected ? 'connected' : 'disconnected')) {
+        return;
+    }
+
     connection.status = connected ? 'connected' : 'disconnected';
     var text = connected ? 'Robot connected!' : 'Robot disconnected.';
     console.log(text);

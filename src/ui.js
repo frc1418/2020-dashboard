@@ -32,8 +32,10 @@ const controlPanelImg = document.getElementById('controlPanelImg');
 const cameraRefresh1 = document.getElementById('camera1-refresh');
 const cameraRefresh2 = document.getElementById('camera2-refresh');
 const ballsIndicatorBar = document.getElementsByClassName("balls-bar");
-const messageButton = document.getElementById("message-button")
-const messageText = document.getElementById("message-text")
+const messageButton = document.getElementById("message-button");
+const messageText = document.getElementById("message-text");
+const camera1OptionSelect = document.getElementById("camera1-options-select");
+const camera2OptionSelect = document.getElementById("camera2-options-select");
 
 const indicatorColors = {
     'disconnected': '#D32F2F',
@@ -62,7 +64,7 @@ cameraRefresh1.addEventListener('click', () => {
         alert('Error: Robot is not connected!');
         return;
     }
-    cameras[0].loadCameraStream();
+    cameras[camera1OptionSelect.selectedIndex].loadCameraStream();
 });
 
 cameraRefresh2.addEventListener('click', () => {
@@ -70,7 +72,19 @@ cameraRefresh2.addEventListener('click', () => {
         alert('Error: Robot is not connected!');
         return;
     }
-    cameras[1].loadCameraStream();
+    cameras[camera2OptionSelect.selectedIndex].loadCameraStream();
+});
+
+camera1OptionSelect.addEventListener('change', () => {
+    cameras[camera1OptionSelect.selectedIndex].setParent(document.getElementById('camera1'));
+    cameras[camera1OptionSelect.selectedIndex].loadCameraStream();
+});
+
+camera2OptionSelect.selectedIndex = 1;
+camera2OptionSelect.addEventListener('change', () => {
+    console.log(cameras[camera2OptionSelect.selectedIndex].stream)
+    cameras[camera2OptionSelect.selectedIndex].setParent(document.getElementById('camera2'));
+    cameras[camera1OptionSelect.selectedIndex].loadCameraStream();
 });
 
 function getRandomInt(min, max) {
@@ -186,6 +200,8 @@ NetworkTables.addKeyListener('/limelight/target_state', (_, value, __) => {
 });
 
 NetworkTables.addKeyListener('/components/launcher/flywheel_rpm', (_, value, __) => {
+    value = Math.round(parseInt(value));
+    
     //var target = NetworkTables.getValue('/components/launcher/target_rpm');
     var target = 1000;
     var redDistance = 500;
@@ -197,7 +213,6 @@ NetworkTables.addKeyListener('/components/launcher/flywheel_rpm', (_, value, __)
 });
 
 NetworkTables.addKeyListener('/Controllers/panelSpinner/isSpinningRotation', (_, value, __) => {
-    console.log(value);
     if (value){
         controlPanelImg.classList.add('spinningRot');
     } else {
@@ -233,8 +248,6 @@ NetworkTables.addKeyListener('/components/intake/ballsCollected', (_, value, __)
     for (let element of ballsIndicatorBar){
         var height = 7.5 * value;
         var yValue = 37.5 - height;
-        console.log("height: " + height)
-        console.log("yValue: " + yValue)
         element.setAttribute('height', `${height}vw`);
         element.setAttribute('y', `${yValue}vw`)
     }
