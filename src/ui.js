@@ -58,21 +58,20 @@ connection.on('status-change', (status, _, __) => {
     }
 });
 
-
-cameraRefresh1.addEventListener('click', () => {
+function refreshCamera(camera) {
     if (!NetworkTables.isRobotConnected()) {
         alert('Error: Robot is not connected!');
         return;
     }
-    cameras[camera1OptionSelect.selectedIndex].loadCameraStream();
+    cameras[camera].loadCameraStream();
+}
+
+cameraRefresh1.addEventListener('click', () => {
+    refreshCamera(camera1OptionSelect.selectedIndex);
 });
 
 cameraRefresh2.addEventListener('click', () => {
-    if (!NetworkTables.isRobotConnected()) {
-        alert('Error: Robot is not connected!');
-        return;
-    }
-    cameras[camera2OptionSelect.selectedIndex].loadCameraStream();
+    refreshCamera(camera2OptionSelect.selectedIndex);
 });
 
 camera1OptionSelect.addEventListener('change', () => {
