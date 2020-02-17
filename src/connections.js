@@ -25,9 +25,9 @@ const cameraLink2 = 'http://10.14.18.2:1182';
 const limelightLink = 'http://10.14.18.11:5801';
 
 const cameras = [
-    new Camera(document.getElementById('camera1'), cameraLink1, '../images/spinner.svg', '../images/error.svg'),
-    new Camera(document.getElementById('camera2'), cameraLink2, '../images/spinner.svg', '../images/error.svg'),
-    new Camera(null, limelightLink, '../images/spinner.svg', '../images/error.svg')
+    new Camera(document.getElementById('camera1'), cameraLink1),
+    new Camera(document.getElementById('camera2'), cameraLink2),
+    new Camera(null, limelightLink)
 ];
 
 let initialLoad = true;
