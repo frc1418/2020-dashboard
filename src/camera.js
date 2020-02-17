@@ -14,15 +14,16 @@ class Camera {
     * @param {Integer} loadingImgId
     * @param {Integer} failedImgId
     */
-    constructor(parent, cameraLink, loadingImgId, failedImgId) {
+
+    constructor(parent, cameraLink) {
         if (parent != null){
             this.container = parent.querySelector('.stream');
             this.crosshair = parent.querySelector('.crosshair');
         }
         this.stream = cameraLink + '/stream.mjpg';
         this.testPage = cameraLink + '/settings.json';
-        this.loadingImg = loadingImgId;
-        this.failedImg = failedImgId;
+        this.loadingImg = '../images/spinner.svg';
+        this.failedImg = '../images/error.svg';
         this.cameraConnected = false;
 
         if (cameraLink == 'http://10.14.18.11:5801'){
