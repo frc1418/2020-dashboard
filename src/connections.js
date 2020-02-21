@@ -38,10 +38,10 @@ NetworkTables.addRobotConnectionListener(onRobotConnection, true);
  * @param {boolean} connected
  */
 function onRobotConnection(connected) {
-    if (connection.status == (connected ? 'connected' : 'disconnected')) {
+    if (connection.status == 'connected'){
         return;
     }
-
+    
     connection.status = connected ? 'connected' : 'disconnected';
     var text = connected ? 'Robot connected!' : 'Robot disconnected.';
     console.log(text);

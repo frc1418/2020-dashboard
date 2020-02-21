@@ -22,6 +22,7 @@ var NetworkTables =
         });
         ipc.on('update', (ev, mesg) => {
             let temp = keys[mesg.key];
+            if (temp === undefined) return;
             temp.flags = mesg.flags;
             temp.val = mesg.val;
             globalListeners.map(e => e(mesg.key, temp.val, temp.new));
