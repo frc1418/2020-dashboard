@@ -198,7 +198,7 @@ NetworkTables.addKeyListener('/limelight/target_state', (_, value, __) => {
 
 });
 
-NetworkTables.addKeyListener('/components/launcher/flywheel_rpm', (_, value, __) => {
+NetworkTables.addKeyListener('/components/launcher/filtered_rpm', (_, value, __) => {
     value = Math.round(parseInt(value));
     
     //var target = NetworkTables.getValue('/components/launcher/target_rpm');
