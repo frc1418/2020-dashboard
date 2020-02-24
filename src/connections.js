@@ -25,9 +25,9 @@ const cameraLink2 = 'http://10.14.18.2:1182';
 const limelightLink = 'http://10.14.18.11:5801';
 
 const cameras = [
-    new Camera(null, cameraLink1),
-    new Camera(null, cameraLink2),
-    new Camera(null, limelightLink)
+    new Camera(cameraLink1),
+    new Camera(cameraLink2),
+    new Camera(limelightLink)
 ];
 
 let initialLoad = true;
