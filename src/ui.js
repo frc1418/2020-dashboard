@@ -1,11 +1,21 @@
 const Split = require('split.js');
 
 let sizes = localStorage.getItem('split-sizes');
+let cameraStream1 = localStorage.getItem('camera-stream-1');
+let cameraStream2 = localStorage.getItem('camera-stream-2');
 
 if (sizes) {
     sizes = JSON.parse(sizes);
 } else {
     sizes = [50, 50]; // default sizes
+}
+
+if (cameraStream1) {
+    cameraStream1 = JSON.parse(cameraStream1);
+    cameraStream2 = JSON.parse(cameraStream2);
+} else {
+    cameraStream1 = 0;
+    cameraStream2 = 1;
 }
 
 const split = Split(['#camera1', '#camera2'], {
@@ -36,6 +46,9 @@ const messageButton = document.getElementById("message-button");
 const messageText = document.getElementById("message-text");
 const camera1OptionSelect = document.getElementById("camera1-options-select");
 const camera2OptionSelect = document.getElementById("camera2-options-select");
+
+cameras[cameraStream1].setParent(document.getElementById('camera1'));
+cameras[cameraStream2].setParent(document.getElementById('camera2'));
 
 const indicatorColors = {
     'disconnected': '#D32F2F',
@@ -74,16 +87,18 @@ cameraRefresh2.addEventListener('click', () => {
     refreshCamera(camera2OptionSelect.selectedIndex);
 });
 
+camera1OptionSelect.selectedIndex = cameraStream1;
 camera1OptionSelect.addEventListener('change', () => {
     cameras[camera1OptionSelect.selectedIndex].setParent(document.getElementById('camera1'));
     cameras[camera1OptionSelect.selectedIndex].loadCameraStream();
+    localStorage.setItem('camera-stream-1', JSON.stringify(camera1OptionSelect.selectedIndex));
 });
 
-camera2OptionSelect.selectedIndex = 1;
+camera2OptionSelect.selectedIndex = cameraStream2;
 camera2OptionSelect.addEventListener('change', () => {
-    console.log(cameras[camera2OptionSelect.selectedIndex].stream)
     cameras[camera2OptionSelect.selectedIndex].setParent(document.getElementById('camera2'));
-    cameras[camera1OptionSelect.selectedIndex].loadCameraStream();
+    cameras[camera2OptionSelect.selectedIndex].loadCameraStream();
+    localStorage.setItem('camera-stream-2', JSON.stringify(camera2OptionSelect.selectedIndex));
 });
 
 function getRandomInt(min, max) {

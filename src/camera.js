@@ -9,17 +9,12 @@ async function sleep(millis) {
 class Camera {
     /**
     * Function to be called when robot connects
-    * @param {HTMLElement} parent
     * @param {String} cameraLink
     * @param {Integer} loadingImgId
     * @param {Integer} failedImgId
     */
 
-    constructor(parent, cameraLink) {
-        if (parent != null){
-            this.container = parent.querySelector('.stream');
-            this.crosshair = parent.querySelector('.crosshair');
-        }
+    constructor(cameraLink) {
         this.stream = cameraLink + '/stream.mjpg';
         this.testPage = cameraLink + '/settings.json';
         this.loadingImg = '../images/spinner.svg';
