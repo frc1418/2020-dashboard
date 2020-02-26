@@ -268,16 +268,16 @@ NetworkTables.addKeyListener('/components/intake/ballsCollected', (_, value, __)
 });
 
 NetworkTables.addKeyListener('/limelight/ty', (_, value, __) => {
-    value = Math.round(parseFloat(value));
+    value = ~~(parseFloat(value) * 1000) / 1000;
     
     //var target = NetworkTables.getValue('/components/launcher/target_rpm');
-    var target = 3.5;
-    var redDistance = 1;
+    var target = 0.7;
+    var redDistance = 2;
     pitchAngleText.textContent = value + "˚";
 
     //sets text color to a color on an hsv gradient between red (0, 100, 90) and green (120, 100, 94)
     let [r, g, b] = sampleHSVGradient(target, redDistance, value)
-    pitchAngleText.style.color = 'rgb(' + r + ' , ' + g + ' , ' + b + ')'
+    pitchAngleText.style.fill = 'rgb(' + r + ' , ' + g + ' , ' + b + ')'
 });
 
 function displayClass(classname, visible){
