@@ -271,7 +271,7 @@ NetworkTables.addKeyListener('/limelight/ty', (_, value, __) => {
     value = ~~(parseFloat(value) * 1000) / 1000;
     
     //var target = NetworkTables.getValue('/components/launcher/target_rpm');
-    var target = 0.7;
+    var target = 2.2;
     var redDistance = 2;
     pitchAngleText.textContent = value + "˚";
 
