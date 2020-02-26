@@ -44,6 +44,7 @@ const cameraRefresh2 = document.getElementById('camera2-refresh');
 const ballsIndicatorBar = document.getElementsByClassName("balls-bar");
 const messageButton = document.getElementById("message-button");
 const messageText = document.getElementById("message-text");
+const pitchAngleText = document.getElementById('target-pitch-angle');
 const camera1OptionSelect = document.getElementById("camera1-options-select");
 const camera2OptionSelect = document.getElementById("camera2-options-select");
 
@@ -264,6 +265,19 @@ NetworkTables.addKeyListener('/components/intake/ballsCollected', (_, value, __)
         element.setAttribute('height', `${height}vw`);
         element.setAttribute('y', `${yValue}vw`)
     }
+});
+
+NetworkTables.addKeyListener('/limelight/ty', (_, value, __) => {
+    value = Math.round(parseFloat(value));
+    
+    //var target = NetworkTables.getValue('/components/launcher/target_rpm');
+    var target = 3.5;
+    var redDistance = 1;
+    pitchAngleText.textContent = value + "˚";
+
+    //sets text color to a color on an hsv gradient between red (0, 100, 90) and green (120, 100, 94)
+    let [r, g, b] = sampleHSVGradient(target, redDistance, value)
+    pitchAngleText.style.color = 'rgb(' + r + ' , ' + g + ' , ' + b + ')'
 });
 
 function displayClass(classname, visible){
