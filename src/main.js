@@ -5,6 +5,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const electron = require('electron');
 const wpilib_NT = require('wpilib-nt-client');
+const fs = require('fs');
 const client = new wpilib_NT.Client();
 
 // Debug client
@@ -105,9 +106,10 @@ function createWindow() {
         console.log(error);
     });
     // Create the browser window.
+    const windowSize = JSON.parse(fs.readFileSync(__dirname + '/settings/window.json'));
     mainWindow = new BrowserWindow({
-        width: 1366,
-        height: 570,
+        width: windowSize.width,
+        height: windowSize.height,
         // 1366x570 is a good standard height, but you may want to change this to fit your DriverStation's screen better.
         // It's best if the dashboard takes up as much space as possible without covering the DriverStation application.
         // The window is closed until the python server is ready
@@ -128,6 +130,11 @@ function createWindow() {
         mainWindow.show();
     });
 
+    mainWindow.on('resize', () => {
+        windowSize.width = mainWindow.getSize()[0];
+        windowSize.height = mainWindow.getSize()[1];
+    });
+
     // Remove menu
     //mainWindow.setMenu(null);
     // Emitted when the window is closed.
@@ -140,6 +147,8 @@ function createWindow() {
         ready = false;
         connectedFunc = null;
         client.removeListener(clientDataListener);
+
+        fs.writeFileSync(__dirname + '/settings/window.json', JSON.stringify(windowSize));
     });
     mainWindow.on('unresponsive', () => {
         console.log('Main Window is unresponsive');
