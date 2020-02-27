@@ -347,6 +347,10 @@ body.enabled > svg {
     transform: translate(-50%, -50%);
 }
 
+#target-pitch-angle {
+    text-anchor: middle;
+}
+
 .spinningRot {
     animation: spin-color-panel-Rot 0.5s linear infinite forwards;
 }

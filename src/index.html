@@ -147,22 +147,24 @@
     </svg>
     <svg id="spinning-svg" class="hidden"></svg>
     <svg id="failed-svg" class="hidden"></svg>
-    <svg id="target-svg" width="320" height="250">
+    <svg id="target-svg" width="320" height="350">
+        <!-- pitch angle to target -->
+        <text id="target-pitch-angle" x="150" y="100" font-size=30>No angle</text>
         <!--message-->
-        <text id="target-message" x="150" y="50" font-size=40>No Target</text>
+        <text id="target-message" x="150" y="150" font-size=40>No Target</text>
         <!--target icon-->
-        <rect class="target" x="136" y="80" width="8" height="150" />
-        <rect class="target" x="65" y="150" width="150" height="8" />
-        <circle class="target" style="stroke-width:5px" cx="140" cy="155" r="60" />
-        <circle class="target" style="stroke-width:5px" cx="140" cy="155" r="50" />
+        <rect class="target" x="136" y="180" width="8" height="150" />
+        <rect class="target" x="65" y="250" width="150" height="8" />
+        <circle class="target" style="stroke-width:5px" cx="140" cy="255" r="60" />
+        <circle class="target" style="stroke-width:5px" cx="140" cy="255" r="50" />
         <!--camera brackets-->
-        <text style="fill: black; stroke-width:0px" x="20" y="200" font-size=180>[</text>
-        <text style="fill: black; stroke-width:0px" x="215" y="200" font-size=180>]</text>
+        <text style="fill: black; stroke-width:0px" x="20" y="300" font-size=180>[</text>
+        <text style="fill: black; stroke-width:0px" x="215" y="300" font-size=180>]</text>
         <!--X and checkmark-->
-        <line class="target-X" x1="70" y1="90" x2="210" y2="220"></line>
-        <line class="target-X" x1="210" y1="90" x2="70" y2="220"></line>
-        <line class="target-check" x1="100" y1="165" x2="130" y2="195"></line>
-        <line class="target-check" x1="125" y1="195" x2="170" y2="125"></line>
+        <line class="target-X" x1="70" y1="190" x2="210" y2="320"></line>
+        <line class="target-X" x1="210" y1="190" x2="70" y2="320"></line>
+        <line class="target-check" x1="100" y1="265" x2="130" y2="295"></line>
+        <line class="target-check" x1="125" y1="295" x2="170" y2="225"></line>
     </svg>
     <div id="message-text"></div>
     <button id="message-button">Click for random message</button>
