@@ -47,6 +47,7 @@ const messageText = document.getElementById("message-text");
 const pitchAngleText = document.getElementById('target-pitch-angle');
 const camera1OptionSelect = document.getElementById("camera1-options-select");
 const camera2OptionSelect = document.getElementById("camera2-options-select");
+const compressorStatus = document.getElementById('compressor-status');
 
 cameras[cameraStream1].setParent(document.getElementById('camera1'));
 cameras[cameraStream2].setParent(document.getElementById('camera2'));
@@ -278,6 +279,16 @@ NetworkTables.addKeyListener('/limelight/ty', (_, value, __) => {
     //sets text color to a color on an hsv gradient between red (0, 100, 90) and green (120, 100, 94)
     let [r, g, b] = sampleHSVGradient(target, redDistance, value)
     pitchAngleText.style.fill = 'rgb(' + r + ' , ' + g + ' , ' + b + ')'
+});
+
+NetworkTables.addKeyListener('/robot/compressor_status', (_, value, __) => {
+    if (value) {
+        compressorStatus.classList.remove('off');
+        compressorStatus.textContent = 'Compressor: ON';
+    } else {
+        compressorStatus.classList.add('off');
+        compressorStatus.textContent = 'Compressor: OFF';
+    }
 });
 
 function displayClass(classname, visible){

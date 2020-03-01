@@ -397,3 +397,13 @@ body.enabled > svg {
         scale: 100%;
     }
 }
+
+#compressor-status {
+    color: green;
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+#compressor-status.off {
+    color: red;
+}
