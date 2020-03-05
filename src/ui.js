@@ -143,7 +143,7 @@ messageButton.addEventListener('click', () => {
         "This dashboard has been invaded by goose!",
         "iBoss knows where you live!",
         "Shrek is love, Shrek is life.",
-        "614's autonomus is awesome!"
+        "614's autonomous is awesome!"
     ]
     messageText.textContent = messages[getRandomInt(0, messages.length-1)];
     messageButton.style.visibility = "hidden"
