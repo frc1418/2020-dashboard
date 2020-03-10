@@ -351,6 +351,20 @@ body.enabled > svg {
     text-anchor: middle;
 }
 
+#compressor-status {
+    color: rgb(0, 235, 0);
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+#compressor-status.off {
+    color: rgb(230, 0, 0);
+}
+
+.back-camera {
+    opacity: 50%;
+}
+
 .spinningRot {
     animation: spin-color-panel-Rot 0.5s linear infinite forwards;
 }
@@ -396,14 +410,4 @@ body.enabled > svg {
     to {
         scale: 100%;
     }
-}
-
-#compressor-status {
-    color: rgb(0, 235, 0);
-    margin-top: 10px;
-    font-size: 20px;
-}
-
-#compressor-status.off {
-    color: rgb(230, 0, 0);
 }

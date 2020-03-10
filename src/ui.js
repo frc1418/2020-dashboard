@@ -90,17 +90,37 @@ cameraRefresh2.addEventListener('click', () => {
 });
 
 camera1OptionSelect.selectedIndex = cameraStream1;
+//if preset camera is intake, dull camera
+if (cameraStream1 == 0){
+    camera1.classList.add('back-camera');
+}
 camera1OptionSelect.addEventListener('change', () => {
     cameras[camera1OptionSelect.selectedIndex].setParent(document.getElementById('camera1'));
     cameras[camera1OptionSelect.selectedIndex].loadCameraStream();
     localStorage.setItem('camera-stream-1', JSON.stringify(camera1OptionSelect.selectedIndex));
+    console.log(camera1OptionSelect.selectedIndex);
+    if (camera1OptionSelect.selectedIndex == 0){
+        camera1.classList.add('back-camera');
+    } else{
+        camera1.classList.remove('back-camera');
+    }
 });
 
 camera2OptionSelect.selectedIndex = cameraStream2;
+//if preset camera is intake, dull camera
+if (cameraStream2 == 0) {
+    camera2.classList.add('back-camera');
+}
 camera2OptionSelect.addEventListener('change', () => {
     cameras[camera2OptionSelect.selectedIndex].setParent(document.getElementById('camera2'));
     cameras[camera2OptionSelect.selectedIndex].loadCameraStream();
     localStorage.setItem('camera-stream-2', JSON.stringify(camera2OptionSelect.selectedIndex));
+    //dulls camera element if selected stream is intake camera
+    if (camera2OptionSelect.selectedIndex == 0) {
+        camera2.classList.add('back-camera');
+    } else {
+        camera2.classList.remove('back-camera');
+    }
 });
 
 function getRandomInt(min, max) {
