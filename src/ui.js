@@ -91,7 +91,7 @@ cameraRefresh2.addEventListener('click', () => {
 
 camera1OptionSelect.selectedIndex = cameraStream1;
 //if preset camera is intake, dull camera
-if (cameraStream1 == 0){
+if (cameraStream1 == 0) {
     camera1.classList.add('back-camera');
 }
 camera1OptionSelect.addEventListener('change', () => {
@@ -99,9 +99,9 @@ camera1OptionSelect.addEventListener('change', () => {
     cameras[camera1OptionSelect.selectedIndex].loadCameraStream();
     localStorage.setItem('camera-stream-1', JSON.stringify(camera1OptionSelect.selectedIndex));
     console.log(camera1OptionSelect.selectedIndex);
-    if (camera1OptionSelect.selectedIndex == 0){
+    if (camera1OptionSelect.selectedIndex == 0) {
         camera1.classList.add('back-camera');
-    } else{
+    } else {
         camera1.classList.remove('back-camera');
     }
 });
@@ -222,7 +222,7 @@ NetworkTables.addKeyListener('/limelight/target_state', (_, value, __) => {
     for (let element of document.getElementsByClassName('target')) {
         element.style.stroke = stateInfo.color;
     }
-    if(value != 1){
+    if(value != 1) {
         displayClass(stateInfo.displayID, true)
     } else{
         displayClass(targetStates["0"].displayID, false)
@@ -249,7 +249,7 @@ NetworkTables.addKeyListener('/components/launcher/filtered_rpm', (_, value, __)
 });
 
 NetworkTables.addKeyListener('/Controllers/panelSpinner/isSpinningRotation', (_, value, __) => {
-    if (value){
+    if (value) {
         controlPanelImg.classList.add('spinningRot');
     } else {
         controlPanelImg.classList.remove('spinningRot');
@@ -281,7 +281,7 @@ NetworkTables.addKeyListener('/robot/ntSolenoid_state', (_, value, __) => {
 });
 
 NetworkTables.addKeyListener('/components/intake/ballsCollected', (_, value, __) => {
-    for (let element of ballsIndicatorBar){
+    for (let element of ballsIndicatorBar) {
         var height = 7.5 * value;
         var yValue = 37.5 - height;
         element.setAttribute('height', `${height}vw`);
@@ -312,8 +312,8 @@ NetworkTables.addKeyListener('/robot/compressor_status', (_, value, __) => {
     }
 });
 
-function displayClass(classname, visible){
-    if(visible){
+function displayClass(classname, visible) {
+    if(visible) {
         for (let element of document.getElementsByClassName(classname)) {
             element.style.visibility = 'visible'
         }
