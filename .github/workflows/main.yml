@@ -23,6 +23,8 @@ jobs:
           Compress-Archive ${{ github.workspace }}\dist\1418-dashboard-2020-darwin-x64 ${{ github.workspace }}\1418-dashboard-2020-darwin-x64.zip
       - name: Build Project Windows
         run: node create-windows-installer.js ${GITHUB_REF##*/}
+        env:
+          GITHUB_REF: ${{ github.ref }}
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
