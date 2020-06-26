@@ -1,0 +1,22 @@
+on:
+  pull_request:
+    branches: 
+      - master
+
+name: Test Release Creation
+
+jobs:
+  build:
+    name: Test Release Creation
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Install Dependencies
+        run: npm install
+      - name: Package Applications
+        run: |
+          npm run package-win
+          npm run package-mac
+      - name: Build Project Windows
+        run: node create-windows-installer.js ${{ github.ref }}
