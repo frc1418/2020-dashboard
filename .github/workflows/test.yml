@@ -19,4 +19,4 @@ jobs:
           npm run package-win
           npm run package-mac
       - name: Build Project Windows
-        run: node create-windows-installer.js ${{ github.ref }}
+        run: node create-windows-installer.js
