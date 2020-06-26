@@ -4,8 +4,8 @@ let version;
 if (process.argv[2]) {
     version = process.argv[2].replace('v', '');
 } else {
-    version = '1.0.0';
-    console.warn('Application version not specified. Defaulting to 1.0.0');
+    process.exitCode = 1;
+    throw new Error('Application version not specified.');
 }
 
 electronInstaller.createWindowsInstaller({
