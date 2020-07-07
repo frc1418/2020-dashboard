@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/frc1418/2020-dashboard#readme",
   "devDependencies": {
-    "electron": "^7.1.8",
+    "electron": "^7.2.4",
     "electron-packager": "^14.1.1",
     "electron-winstaller": "^4.0.0",
     "rcedit": "^2.1.0"
