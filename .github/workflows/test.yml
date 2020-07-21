@@ -19,4 +19,5 @@ jobs:
           npm run package-win
           npm run package-mac
       - name: Build Project Windows
-        run: node create-windows-installer.js
+        # Fake version for testing
+        run: node create-windows-installer.js 1.0.0
